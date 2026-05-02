@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<script>
+(function(){
+  try {
+    var vis = JSON.parse(localStorage.getItem('tbss_vis')||'{}');
+    var pageKey = 'taboraBoysForm5';
+    if(vis.siteVis && vis.siteVis[pageKey]===false){
+      document.documentElement.style.display='none';
+      document.addEventListener('DOMContentLoaded',function(){
+        document.body.innerHTML='<div style="font-family:sans-serif;text-align:center;padding:80px;color:#666;"><h2>Page Unavailable</h2><p>'+(vis.closedMsg||'This page is currently unavailable.')+'</p></div>';
+        document.documentElement.style.display='';
+      });
+    }
+  } catch(e){}
+})();
+</script>
+  <meta charset="UTF-8">
+  <title>Fomu ya Kujiandikisha - Tabora Boys Secondary School Form 5 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    :root {
+      --primary: #1a365d;
+      --secondary: #2c5282;
+      --accent: #d69e2e;
+      --success: #38a169;
+      --danger: #e53e3e;
+      --light: #f7fafc;
+      --dark: #1a202c;
+      --form5: #553c9a; /* purple accent for Form 5 */
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #1a365d 0%, #553c9a 50%, #d69e2e 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    body::before {
+      content: '';
+      position: fixed; top:0; left:0; right:0; bottom:0;
+      background-image: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.05) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(255,255,255,0.05) 0%, transparent 50%);
+      pointer-events: none; z-index: 0;
+    }
+    .container { max-width: 950px; margin: 0 auto; position: relative; z-index: 1; }
+    .form-header {
+      background: white; border-radius: 20px 20px 0 0;
+      padding: 35px 40px; text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      animation: slideDown 0.6s ease-out;
+      border-top: 6px solid var(--form5);
+    }
+    .form5-badge {
+      display: inline-block; background: linear-gradient(135deg, var(--form5), #6b46c1);
+      color: white; font-size: 0.72rem; font-weight: 800; padding: 4px 14px;
+      border-radius: 20px; letter-spacing: 1px; text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .form-header .school-logo { margin-bottom: 10px; }
+    .form-header .school-logo img { width: 90px; height: 90px; object-fit: contain; }
+    .govt-text { font-size: 0.78rem; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+    @keyframes slideDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .form-header h1 { font-family: 'Playfair Display', serif; font-size: 1.9rem; color: var(--primary); margin-bottom: 4px; font-weight: 900; }
+    .form-header h2 { font-size: 1.15rem; color: var(--form5); margin-bottom: 8px; font-weight: 600; }
+    .form-header p { color: #666; font-size: 0.95rem; }
+    .back-btn {
+      position: absolute; top: 20px; left: 20px;
+      background: rgba(255,255,255,0.9); border: none; padding: 12px 24px; border-radius: 10px;
+      cursor: pointer; font-weight: 600; color: var(--primary); transition: all 0.3s ease;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .back-btn:hover { background: white; transform: translateX(-5px); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    .form-container { background: white; border-radius: 0 0 20px 20px; padding: 45px 50px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); animation: fadeInUp 0.8s ease-out 0.2s backwards; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .form-section { margin-bottom: 40px; padding-bottom: 30px; border-bottom: 2px solid #e2e8f0; }
+    .form-section:last-child { border-bottom: none; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--dark); margin-bottom: 22px; display: flex; align-items: center; gap: 12px; font-weight: 700; padding-bottom: 10px; border-bottom: 3px solid var(--form5); }
+    .section-icon { font-size: 1.4rem; color: var(--form5); width: 28px; text-align: center; }
+    .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; margin-bottom: 22px; }
+    .form-row-3 { grid-template-columns: repeat(3, 1fr); }
+    .form-row-2 { grid-template-columns: repeat(2, 1fr); }
+    .form-row-1 { grid-template-columns: 1fr; }
+    .form-group { position: relative; }
+    .form-group label { display: block; margin-bottom: 8px; color: var(--dark); font-weight: 600; font-size: 0.9rem; }
+    .form-group label span { color: var(--danger); }
+    .form-input { width: 100%; padding: 13px 16px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 0.95rem; transition: all 0.3s ease; background: #f8f9fa; font-family: inherit; }
+    .form-input:focus { outline: none; border-color: var(--form5); background: white; box-shadow: 0 0 0 4px rgba(85,60,154,0.1); transform: translateY(-1px); }
+    .form-input:valid { border-color: var(--success); }
+    .form-input::placeholder { color: #aaa; }
+    select.form-input { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px; background-color: #f8f9fa; }
+    textarea.form-input { resize: vertical; min-height: 100px; font-family: inherit; }
+
+    /* COMBINATION SELECTOR */
+    .combo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 10px; }
+    .combo-card {
+      border: 2px solid #e2e8f0; border-radius: 14px; padding: 18px 16px;
+      cursor: pointer; transition: all 0.3s ease; background: #f8f9fa;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .combo-card:hover { border-color: var(--form5); background: #faf5ff; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(85,60,154,0.15); }
+    .combo-card.selected { border-color: var(--form5); background: linear-gradient(135deg, #faf5ff, #ede9fe); box-shadow: 0 0 0 3px rgba(85,60,154,0.2); }
+    .combo-card.selected::after { content: '✓'; position: absolute; top: 8px; right: 12px; color: var(--form5); font-weight: 900; font-size: 1rem; }
+    .combo-code { font-size: 1.8rem; font-weight: 900; color: var(--form5); font-family: 'Playfair Display', serif; margin-bottom: 4px; }
+    .combo-name { font-size: 0.85rem; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
+    .combo-subjects { font-size: 0.75rem; color: #666; line-height: 1.5; }
+    .combo-subjects span { display: inline-block; background: #e9d8fd; color: #553c9a; padding: 2px 8px; border-radius: 20px; margin: 1px; font-size: 0.72rem; font-weight: 600; }
+    input[type="hidden"]#selectedCombo {}
+
+    /* RESULTS TABLE */
+    .results-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.88rem; }
+    .results-table th { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 10px 12px; text-align: left; font-weight: 700; }
+    .results-table td { padding: 9px 12px; border-bottom: 1px solid #e2e8f0; }
+    .results-table tr:nth-child(even) { background: #f8f9fa; }
+    .results-table tr:hover { background: #eef2f8; }
+    .grade-input { width: 70px; padding: 6px 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: inherit; font-size: 0.88rem; text-align: center; text-transform: uppercase; }
+    .grade-input:focus { outline: none; border-color: var(--form5); }
+    .points-input { width: 70px; padding: 6px 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: inherit; font-size: 0.88rem; text-align: center; }
+    .points-input:focus { outline: none; border-color: var(--form5); }
+
+    /* Photo upload */
+    .photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 10px; }
+    .photo-slot { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .photo-slot label { font-size: 0.8rem; font-weight: 600; color: var(--secondary); text-align: center; }
+    .photo-slot .photo-caption { font-size: 0.72rem; color: #888; text-align: center; font-style: italic; }
+    .image-preview { width: 100%; aspect-ratio: 3/4; border: 2px dashed #cbd5e0; border-radius: 8px; background: #f8f9fa; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer; transition: all 0.3s ease; }
+    .image-preview:hover { border-color: var(--form5); background: #faf5ff; }
+    .image-preview img { width: 100%; height: 100%; object-fit: cover; }
+    .image-preview-placeholder { color: #999; text-align: center; font-size: 0.78rem; padding: 10px; }
+    .upload-btn { background: var(--form5); color: white; border: none; padding: 9px 16px; border-radius: 7px; cursor: pointer; font-weight: 600; font-size: 0.8rem; transition: all 0.3s ease; width: 100%; }
+    .upload-btn:hover { background: #6b46c1; transform: translateY(-1px); }
+
+    /* Signature */
+    .signature-pad-wrap { border: 2px solid #e2e8f0; border-radius: 10px; background: #f8f9fa; overflow: hidden; }
+    .signature-pad-wrap canvas { display: block; width: 100%; height: 120px; cursor: crosshair; touch-action: none; }
+    .sig-actions { display: flex; gap: 8px; margin-top: 6px; }
+    .sig-clear-btn { background: #e53e3e; color: white; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 0.78rem; font-weight: 600; }
+
+    /* Ahadi */
+    .ahadi-box { background: #faf5ff; border: 2px solid #e9d8fd; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+    .ahadi-box h4 { color: var(--form5); font-size: 1rem; margin-bottom: 12px; font-weight: 700; }
+    .ahadi-box p { color: #555; font-size: 0.9rem; line-height: 1.6; }
+    .signature-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px; }
+    .signature-field { border-bottom: 2px solid #ccc; padding-bottom: 5px; min-height: 40px; color: #888; font-size: 0.85rem; }
+
+    /* Success / status */
+    .success-message { display: none; background: linear-gradient(135deg, var(--success), #48bb78); color: white; padding: 20px; border-radius: 12px; margin-bottom: 25px; text-align: center; font-weight: 600; animation: slideIn 0.5s ease-out; }
+    @keyframes slideIn { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    .success-message.show { display: block; }
+    .form-input.error { border-color: var(--danger); }
+    .submit-section { display: flex; gap: 16px; justify-content: flex-end; margin-top: 40px; flex-wrap: wrap; }
+    .submit-btn, .reset-btn, .download-btn { padding: 16px 36px; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; }
+    .submit-btn { background: linear-gradient(135deg, var(--form5), #6b46c1); color: white; box-shadow: 0 4px 15px rgba(85,60,154,0.3); }
+    .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(85,60,154,0.4); }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .download-btn { background: linear-gradient(135deg, var(--success), #48bb78); color: white; box-shadow: 0 4px 15px rgba(56,161,105,0.3); display: none; }
+    .download-btn.show { display: inline-block; }
+    .download-btn:hover { transform: translateY(-3px); }
+    .reset-btn { background: #e2e8f0; color: var(--dark); }
+    .reset-btn:hover { background: #cbd5e0; transform: translateY(-2px); }
+    .spinner { width: 18px; height: 18px; border: 3px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.8s linear infinite; display: none; position: absolute; right: 18px; top: 50%; transform: translateY(-50%); }
+    @keyframes spin { to { transform: translateY(-50%) rotate(360deg); } }
+    .submit-btn.loading .spinner { display: block; }
+    .submit-btn.loading #submitBtnText { opacity: 0.6; }
+    .status-badge { display: inline-block; padding: 7px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-top: 12px; }
+    .status-badge.online { background: #c6f6d5; color: #22543d; }
+    .status-badge.offline { background: #fed7d7; color: #742a2a; }
+    .info-note { background: #faf5ff; border-left: 4px solid var(--form5); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 0.85rem; color: #553c9a; margin-bottom: 20px; }
+
+    /* PDF PREVIEW */
+    #pdfPreview { position: fixed; left: -9999px; top: -9999px; width: 210mm; background: white; padding: 15mm 18mm; font-family: 'Inter', sans-serif; font-size: 10pt; }
+    .pdf-header { text-align: center; border-bottom: 3px solid var(--primary); padding-bottom: 12px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 16px; }
+    .pdf-header-logo { width: 60px; height: 60px; object-fit: contain; }
+    .pdf-header-text { text-align: center; }
+    .pdf-header .pdf-govt { font-size: 8pt; color: #555; text-transform: uppercase; letter-spacing: 0.5px; }
+    .pdf-header h1 { font-family: 'Playfair Display', serif; color: var(--primary); font-size: 18pt; margin: 4px 0; }
+    .pdf-header h2 { color: var(--form5); font-size: 12pt; margin-bottom: 3px; }
+    .pdf-header p { color: #666; font-size: 8pt; }
+    .pdf-content { display: flex; gap: 18px; }
+    .pdf-main { flex: 1; }
+    .pdf-right { width: 120px; flex-shrink: 0; }
+    .pdf-photo img { width: 100%; border: 2px solid var(--primary); border-radius: 4px; }
+    .pdf-photo-label { font-size: 7pt; text-align: center; color: #666; margin-top: 3px; }
+    .pdf-section { margin-bottom: 14px; }
+    .pdf-section-title { font-family: 'Playfair Display', serif; color: var(--primary); font-size: 11pt; font-weight: 700; margin-bottom: 8px; border-bottom: 1.5px solid var(--form5); padding-bottom: 3px; }
+    .pdf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 6px; }
+    .pdf-row-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .pdf-field { margin-bottom: 5px; }
+    .pdf-label { font-weight: 600; color: #333; font-size: 8pt; margin-bottom: 1px; }
+    .pdf-value { color: #444; font-size: 9.5pt; border-bottom: 1px solid #ddd; padding-bottom: 2px; min-height: 14px; }
+    .pdf-combo-badge { display: inline-block; background: #e9d8fd; color: #553c9a; padding: 2px 10px; border-radius: 20px; font-size: 9pt; font-weight: 800; margin-bottom: 6px; }
+    .pdf-results-table { width: 100%; border-collapse: collapse; font-size: 8pt; margin-top: 6px; }
+    .pdf-results-table th { background: #553c9a; color: white; padding: 5px 8px; text-align: left; font-size: 7.5pt; }
+    .pdf-results-table td { padding: 4px 8px; border-bottom: 1px solid #e2e8f0; }
+    .pdf-results-table tr:nth-child(even) { background: #faf5ff; }
+    .pdf-ahadi { margin-top: 12px; border: 1px solid #ccc; border-radius: 4px; padding: 8px 12px; font-size: 8.5pt; color: #333; }
+    .pdf-ahadi strong { color: var(--primary); }
+    .pdf-sign-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 10px; }
+    .pdf-sign { font-size: 8pt; color: #555; }
+    .pdf-sign-label { margin-bottom: 4px; font-weight: 600; }
+    .pdf-sign img { border-bottom: 1px solid #333; display: block; height: 50px; max-width: 100%; object-fit: contain; }
+    .pdf-sign-line { border-bottom: 1px solid #333; height: 50px; }
+    .pdf-footer { margin-top: 18px; padding-top: 10px; border-top: 2px solid #e2e8f0; text-align: center; font-size: 8pt; color: #666; }
+    .pdf-stamp-area { display: flex; justify-content: space-between; margin-top: 15px; }
+    .pdf-stamp-box { width: 80px; height: 80px; border: 1px dashed #ccc; display: flex; align-items: center; justify-content: center; font-size: 7pt; color: #aaa; text-align: center; border-radius: 4px; }
+
+    /* ADMIN */
+    .admin-lock-btn {
+      position: fixed; top: 20px; right: 20px; z-index: 9000;
+      background: rgba(85,60,154,0.92); color: white;
+      border: 2px solid #e9d8fd; border-radius: 50px;
+      padding: 10px 18px; cursor: pointer; font-weight: 700;
+      display: flex; align-items: center; gap: 8px; font-size: 0.88rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3); backdrop-filter: blur(6px);
+      transition: all 0.3s ease; font-family: 'Inter', sans-serif;
+    }
+    .admin-lock-btn:hover { background: rgba(85,60,154,1); transform: scale(1.05); }
+    .admin-lock-btn.unlocked { background: rgba(56,161,105,0.92); border-color: #48bb78; }
+    .admin-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9999; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+    .admin-modal-box { background: white; border-radius: 18px; width: 360px; max-width: 95vw; box-shadow: 0 20px 60px rgba(0,0,0,0.4); animation: popIn 0.3s ease; overflow: hidden; }
+    @keyframes popIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .admin-modal-header { background: linear-gradient(135deg, var(--form5), #6b46c1); padding: 28px; text-align: center; color: white; }
+    .admin-modal-header h3 { font-size: 1.2rem; font-weight: 700; margin: 0; }
+    .admin-modal-body { padding: 24px 28px; }
+    .admin-field { margin-bottom: 16px; }
+    .admin-field label { display: block; font-weight: 600; font-size: 0.85rem; color: var(--dark); margin-bottom: 6px; }
+    .admin-modal-footer { display: flex; gap: 10px; padding: 16px 28px 24px; }
+    .admin-cancel-btn { flex: 1; padding: 12px; border: 2px solid #e2e8f0; background: white; border-radius: 10px; font-weight: 600; cursor: pointer; color: #666; font-family: 'Inter', sans-serif; font-size: 0.9rem; }
+    .admin-login-btn { flex: 2; padding: 12px; background: linear-gradient(135deg, var(--form5), #6b46c1); color: white; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 0.9rem; }
+    #adminToolbar {
+      position: sticky; top: 0; z-index: 8000; margin-bottom: 16px;
+      background: linear-gradient(135deg, #1a202c, #2d3748);
+      border-radius: 14px; overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+      animation: slideToolbar 0.4s ease;
+    }
+    @keyframes slideToolbar { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .admin-toolbar-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; flex-wrap: wrap; gap: 10px; }
+    .admin-toolbar-left { display: flex; align-items: center; gap: 12px; }
+    .admin-toolbar-right { display: flex; gap: 8px; flex-wrap: wrap; }
+    .admin-badge { background: #e9d8fd; color: var(--form5); font-size: 0.7rem; font-weight: 800; padding: 3px 10px; border-radius: 20px; letter-spacing: 1px; }
+    .atb-btn { padding: 9px 16px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.82rem; font-family: 'Inter', sans-serif; display: flex; align-items: center; gap: 6px; transition: all 0.2s; }
+    .atb-save { background: var(--success); color: white; }
+    .atb-save:hover { background: #2f855a; transform: translateY(-1px); }
+    .atb-reset { background: #4a5568; color: #e2e8f0; }
+    .atb-logout { background: var(--danger); color: white; }
+    .admin-hint { background: rgba(233,216,253,0.15); border-top: 1px solid rgba(233,216,253,0.3); padding: 8px 20px; font-size: 0.8rem; color: #e9d8fd; display: flex; align-items: center; gap: 8px; }
+    body.admin-mode .section-title, body.admin-mode label, body.admin-mode .form-header h1, body.admin-mode .form-header h2, body.admin-mode .form-header p, body.admin-mode .govt-text, body.admin-mode .ahadi-box p, body.admin-mode .ahadi-box h4, body.admin-mode .info-note {
+      outline: 2px dashed rgba(85,60,154,0.5) !important; outline-offset: 2px !important; border-radius: 4px !important; cursor: text !important;
+    }
+    body.admin-mode .section-title:hover, body.admin-mode label:hover { outline: 2px solid var(--form5) !important; background: rgba(85,60,154,0.05) !important; }
+    body.admin-mode [contenteditable="true"]:focus { outline: 2px solid var(--form5) !important; background: rgba(85,60,154,0.08) !important; border-radius: 4px !important; }
+    .admin-toast {
+      position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+      background: #22543d; color: white; padding: 14px 28px; border-radius: 50px;
+      font-weight: 700; font-size: 0.9rem; z-index: 99999; pointer-events: none;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.3); animation: toastAnim 3s ease forwards;
+    }
+    @keyframes toastAnim { 0%{opacity:0;transform:translateX(-50%) translateY(20px)} 15%{opacity:1;transform:translateX(-50%) translateY(0)} 75%{opacity:1} 100%{opacity:0;transform:translateX(-50%) translateY(-10px)} }
+
+    /* PDF EDITOR */
+    .pdf-editor-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 10000; display: flex; align-items: flex-start; justify-content: center; backdrop-filter: blur(4px); overflow-y: auto; padding: 20px; }
+    .pdf-editor-box { background: white; border-radius: 18px; width: 900px; max-width: 98vw; box-shadow: 0 20px 60px rgba(0,0,0,0.5); animation: popIn 0.3s ease; overflow: hidden; margin: auto; }
+    .pdf-editor-header { background: linear-gradient(135deg, #1a202c, #2d3748); padding: 20px 28px; display: flex; align-items: center; justify-content: space-between; }
+    .pdf-editor-header h3 { color: white; font-size: 1.1rem; font-weight: 700; margin:0; }
+    .pdf-editor-close { background: #e53e3e; color: white; border: none; width: 34px; height: 34px; border-radius: 8px; cursor: pointer; font-size: 1rem; font-weight: 700; }
+    .pdf-editor-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; min-height: 600px; }
+    .pdf-editor-left { padding: 24px; border-right: 2px solid #e2e8f0; overflow-y: auto; max-height: 75vh; }
+    .pdf-editor-right { padding: 24px; background: #f7fafc; overflow-y: auto; max-height: 75vh; }
+    .pdf-editor-section { margin-bottom: 20px; }
+    .pdf-editor-section h4 { font-size: 0.85rem; font-weight: 800; color: var(--form5); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 2px solid var(--form5); }
+    .pdf-field-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; padding: 6px 8px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e2e8f0; }
+    .pdf-field-row:hover { border-color: var(--form5); background: #faf5ff; }
+    .pdf-field-row input[type="text"] { flex: 1; border: none; background: transparent; font-size: 0.85rem; font-family: inherit; color: var(--dark); font-weight: 600; }
+    .pdf-field-row input[type="text"]:focus { outline: none; }
+    .pdf-field-toggle { width: 36px; height: 20px; background: #cbd5e0; border-radius: 20px; position: relative; cursor: pointer; transition: background 0.2s; border: none; flex-shrink: 0; }
+    .pdf-field-toggle.on { background: var(--success); }
+    .pdf-field-toggle::after { content: ''; position: absolute; width: 14px; height: 14px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: left 0.2s; }
+    .pdf-field-toggle.on::after { left: 19px; }
+    .pdf-header-field { margin-bottom: 12px; }
+    .pdf-header-field label { display: block; font-size: 0.8rem; font-weight: 700; color: #666; margin-bottom: 4px; }
+    .pdf-header-field input, .pdf-header-field textarea { width: 100%; padding: 8px 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 0.85rem; font-family: inherit; }
+    .pdf-header-field input:focus, .pdf-header-field textarea:focus { outline: none; border-color: var(--form5); }
+    .pdf-preview-mini { background: white; border: 2px solid #e2e8f0; border-radius: 10px; padding: 14px; font-size: 0.72rem; }
+    .pdf-preview-mini h5 { text-align: center; color: var(--form5); font-size: 0.85rem; margin-bottom: 8px; border-bottom: 2px solid var(--form5); padding-bottom: 4px; }
+    .pdf-preview-mini .ppm-row { display: flex; justify-content: space-between; padding: 3px 0; border-bottom: 1px solid #f0f0f0; }
+    .pdf-preview-mini .ppm-label { color: #555; font-weight: 700; flex: 1; }
+    .pdf-preview-mini .ppm-val { color: #888; flex: 1; text-align: right; font-style: italic; }
+    .pdf-editor-footer { padding: 16px 28px; border-top: 2px solid #e2e8f0; display: flex; gap: 10px; justify-content: flex-end; background: #f7fafc; }
+    .pdf-ed-btn { padding: 10px 22px; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 0.88rem; font-family: inherit; border: none; transition: all 0.2s; }
+    .pdf-ed-apply { background: var(--form5); color: white; }
+    .pdf-ed-apply:hover { background: #6b46c1; }
+    .pdf-ed-cancel { background: #e2e8f0; color: var(--dark); }
+    .pdf-ed-reset { background: #fed7d7; color: #742a2a; }
+    .section-toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; background: #faf5ff; border-radius: 8px; margin-bottom: 8px; border: 1px solid #e9d8fd; }
+    .section-toggle-row span { font-size: 0.85rem; font-weight: 700; color: var(--form5); }
+
+    @media (max-width: 600px) {
+      .form-container { padding: 25px 20px; }
+      .photo-grid { grid-template-columns: repeat(2, 1fr); }
+      .form-row-3 { grid-template-columns: 1fr; }
+      .form-row-2 { grid-template-columns: 1fr; }
+      .combo-grid { grid-template-columns: 1fr; }
+      .submit-section { flex-direction: column; }
+      .submit-btn, .reset-btn, .download-btn { width: 100%; text-align: center; }
+      .pdf-editor-body { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left" style="margin-right:6px;"></i>Rudi Nyuma</button>
+
+    <!-- ADMIN LOCK -->
+    <button class="admin-lock-btn" id="adminLockBtn" onclick="openAdminLogin()">
+      <i class="fas fa-lock" id="lockIcon"></i>
+      <span id="adminLockLabel">Admin</span>
+    </button>
+
+    <!-- ADMIN LOGIN MODAL -->
+    <div id="adminLoginModal" class="admin-modal-overlay" style="display:none;">
+      <div class="admin-modal-box">
+        <div class="admin-modal-header">
+          <i class="fas fa-shield-alt" style="font-size:2rem; color:#e9d8fd; margin-bottom:8px;"></i>
+          <h3>Ingia kama Msimamizi – Kidato cha 5</h3>
+          <p style="color:#e9d8fd; font-size:0.85rem; margin-top:4px;">Weka neno la siri kuingia</p>
+        </div>
+        <div class="admin-modal-body">
+          <div class="admin-field">
+            <label><i class="fas fa-user" style="margin-right:6px;color:var(--form5);"></i>Jina la Mtumiaji</label>
+            <input type="text" id="adminUser" placeholder="admin" class="form-input" autocomplete="off">
+          </div>
+          <div class="admin-field">
+            <label><i class="fas fa-key" style="margin-right:6px;color:var(--form5);"></i>Neno la Siri</label>
+            <input type="password" id="adminPass" placeholder="••••••" class="form-input" autocomplete="off" onkeydown="if(event.key==='Enter')doAdminLogin()">
+          </div>
+          <div id="loginError" style="display:none; background:#fff5f5; border:1px solid #feb2b2; color:#c53030; padding:10px; border-radius:8px; font-size:0.85rem; margin-top:8px; text-align:center;">
+            <i class="fas fa-exclamation-circle"></i> Jina au neno la siri si sahihi!
+          </div>
+        </div>
+        <div class="admin-modal-footer">
+          <button class="admin-cancel-btn" onclick="closeAdminLogin()">Ghairi</button>
+          <button class="admin-login-btn" onclick="doAdminLogin()"><i class="fas fa-sign-in-alt" style="margin-right:6px;"></i>Ingia</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADMIN TOOLBAR -->
+    <div id="adminToolbar" style="display:none;">
+      <div class="admin-toolbar-inner">
+        <div class="admin-toolbar-left">
+          <i class="fas fa-unlock" style="color:#e9d8fd; font-size:1.2rem;"></i>
+          <span style="font-weight:700; color:white;">Hali ya Usimamizi – F.5</span>
+          <span class="admin-badge">EDIT MODE</span>
+          <span id="regStatusPill" style="background:#2f855a;color:white;font-size:0.72rem;font-weight:800;padding:3px 12px;border-radius:20px;letter-spacing:0.5px;display:flex;align-items:center;gap:5px;">
+            <i class="fas fa-circle" style="font-size:0.55rem;"></i><span id="regStatusText">Usajili: Umefunguliwa</span>
+          </span>
+        </div>
+        <div class="admin-toolbar-right">
+          <button class="atb-btn atb-save" onclick="saveAdminChanges()"><i class="fas fa-save"></i> Hifadhi</button>
+          <button class="atb-btn" style="background:#805ad5;color:white;" onclick="openPdfEditor()"><i class="fas fa-file-pdf"></i> Hariri PDF</button>
+          <button class="atb-btn" id="regToggleBtn" style="background:#c53030;color:white;" onclick="openRegControl()">
+            <i class="fas fa-door-open"></i> <span id="regToggleBtnText">Funga Usajili</span>
+          </button>
+          <button class="atb-btn atb-reset" onclick="resetAdminChanges()"><i class="fas fa-undo"></i> Rejesha</button>
+          <button class="atb-btn atb-logout" onclick="adminLogout()"><i class="fas fa-sign-out-alt"></i> Toka</button>
+        </div>
+      </div>
+      <div class="admin-hint"><i class="fas fa-info-circle"></i> Bonyeza maandishi yoyote kuhariri. "Hariri PDF" – badilisha muundo. "Funga/Fungua Usajili" – simamia usajili.</div>
+    </div>
+
+    <!-- REGISTRATION CONTROL MODAL -->
+    <div id="regControlModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:10001;align-items:center;justify-content:center;backdrop-filter:blur(4px);">
+      <div style="background:white;border-radius:18px;width:480px;max-width:95vw;box-shadow:0 20px 60px rgba(0,0,0,0.4);overflow:hidden;animation:popIn 0.3s ease;">
+        <div style="background:linear-gradient(135deg,#553c9a,#6b46c1);padding:22px 28px;display:flex;align-items:center;gap:12px;">
+          <i class="fas fa-door-closed" style="color:#e9d8fd;font-size:1.5rem;"></i>
+          <div>
+            <h3 style="color:white;font-size:1.1rem;font-weight:700;margin:0;">Simamia Usajili – Kidato cha 5</h3>
+            <p style="color:#e9d8fd;font-size:0.82rem;margin:0;">Fungua au funga usajili wa wanafunzi wapya</p>
+          </div>
+        </div>
+        <div style="padding:24px 28px;">
+          <div style="background:#f7fafc;border:2px solid #e2e8f0;border-radius:12px;padding:16px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:0.82rem;color:#666;font-weight:600;margin-bottom:4px;">Hali ya Sasa:</div>
+              <div id="rcCurrentStatus" style="font-size:1.1rem;font-weight:800;color:#2f855a;display:flex;align-items:center;gap:8px;">
+                <i class="fas fa-check-circle"></i> Usajili Umefunguliwa
+              </div>
+            </div>
+            <div id="rcStatusIcon" style="width:50px;height:50px;background:#c6f6d5;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#2f855a;">
+              <i class="fas fa-door-open"></i>
+            </div>
+          </div>
+          <div style="margin-bottom:16px;">
+            <label style="display:block;font-size:0.85rem;font-weight:700;color:#2d3748;margin-bottom:6px;"><i class="fas fa-comment-alt" style="margin-right:5px;color:#553c9a;"></i>Ujumbe kwa Wanafunzi (Wakati Usajili Umefungwa)</label>
+            <textarea id="rcClosedMsg" rows="3" style="width:100%;padding:10px 14px;border:2px solid #e2e8f0;border-radius:10px;font-family:inherit;font-size:0.9rem;resize:vertical;">Usajili wa Kidato cha 5 umefungwa kwa sasa. Tafadhali wasiliana na ofisi ya shule.</textarea>
+          </div>
+          <div style="margin-bottom:20px;">
+            <label style="display:block;font-size:0.85rem;font-weight:700;color:#2d3748;margin-bottom:6px;"><i class="fas fa-calendar-alt" style="margin-right:5px;color:#553c9a;"></i>Tarehe ya Mwisho wa Usajili (Hiari)</label>
+            <input type="date" id="rcDeadline" style="width:100%;padding:10px 14px;border:2px solid #e2e8f0;border-radius:10px;font-family:inherit;font-size:0.9rem;">
+          </div>
+          <div style="display:flex;gap:10px;">
+            <button onclick="closeRegControl()" style="flex:1;padding:12px;border:2px solid #e2e8f0;background:white;border-radius:10px;font-weight:600;cursor:pointer;font-family:inherit;font-size:0.9rem;color:#666;">Ghairi</button>
+            <button id="rcOpenBtn" onclick="setRegistration(true)" style="flex:2;padding:12px;background:linear-gradient(135deg,#2f855a,#38a169);color:white;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-family:inherit;font-size:0.9rem;display:none;">
+              <i class="fas fa-door-open" style="margin-right:6px;"></i>Fungua Usajili
+            </button>
+            <button id="rcCloseBtn" onclick="setRegistration(false)" style="flex:2;padding:12px;background:linear-gradient(135deg,#c53030,#e53e3e);color:white;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-family:inherit;font-size:0.9rem;">
+              <i class="fas fa-door-closed" style="margin-right:6px;"></i>Funga Usajili
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REGISTRATION CLOSED BANNER -->
+    <div id="regClosedBanner" style="display:none;background:linear-gradient(135deg,#742a2a,#c53030);color:white;border-radius:14px;padding:24px 28px;text-align:center;animation:slideDown 0.5s ease;margin-bottom:0;">
+      <i class="fas fa-lock" style="font-size:2rem;margin-bottom:10px;display:block;color:#fed7d7;"></i>
+      <h3 style="font-size:1.3rem;font-weight:800;margin-bottom:8px;">Usajili Umefungwa</h3>
+      <p id="regClosedMsg" style="color:#fed7d7;font-size:0.95rem;margin-bottom:6px;">Usajili wa Kidato cha 5 umefungwa kwa sasa.</p>
+      <p id="regClosedDeadline" style="color:#fbd38d;font-size:0.85rem;display:none;"></p>
+    </div>
+
+    <!-- PDF LAYOUT EDITOR MODAL -->
+    <div id="pdfEditorModal" class="pdf-editor-overlay" style="display:none;">
+      <div class="pdf-editor-box">
+        <div class="pdf-editor-header">
+          <h3><i class="fas fa-file-pdf" style="color:#fc8181;margin-right:8px;"></i>Hariri Muundo wa PDF – Kidato cha 5</h3>
+          <button class="pdf-editor-close" onclick="closePdfEditor()">✕</button>
+        </div>
+        <div class="pdf-editor-body">
+          <div class="pdf-editor-left">
+            <div class="pdf-editor-section">
+              <h4><i class="fas fa-school" style="margin-right:6px;"></i>Taarifa za Shule</h4>
+              <div class="pdf-header-field"><label>Jina la Shule</label><input type="text" id="pe-schoolName" value="SHULE YA SEKONDARI TABORA WAVULANA"></div>
+              <div class="pdf-header-field"><label>Kichwa cha Fomu</label><input type="text" id="pe-formTitle" value="FOMU YA KUJIANDIKISHA – KIDATO CHA 5 2026"></div>
+              <div class="pdf-header-field"><label>Mawasiliano</label><input type="text" id="pe-contact" value="S.L.P 374, Tabora | Simu: 0755297005 | Uutawalataboraschool@gmail.com"></div>
+              <div class="pdf-header-field"><label>Maandishi ya Serikali</label><input type="text" id="pe-govtText" value="Jamhuri ya Muungano wa Tanzania • TAMISEMI • Halmashauri ya Manispaa ya Tabora"></div>
+              <div class="pdf-header-field"><label>Nambari ya Kumbukumbu</label><input type="text" id="pe-refNo" value="Kumb. Na. F.V/2025/1"></div>
+              <div class="pdf-header-field"><label>Tarehe ya Kufungua Shule</label><input type="text" id="pe-openDate" value="Shule itafunguliwa 13 Januari 2026 – Lazima ufike kabla ya saa 12:00 jioni"></div>
+            </div>
+            <div class="pdf-editor-section">
+              <h4><i class="fas fa-eye" style="margin-right:6px;"></i>Onyesha / Ficha Sehemu</h4>
+              <div id="pe-sectionToggles"></div>
+            </div>
+            <div class="pdf-editor-section">
+              <h4><i class="fas fa-tag" style="margin-right:6px;"></i>Hariri Labels za PDF</h4>
+              <div id="pe-fieldLabels"></div>
+            </div>
+            <div class="pdf-editor-section">
+              <h4><i class="fas fa-paragraph" style="margin-right:6px;"></i>Maandishi ya Ahadi</h4>
+              <div class="pdf-header-field"><label>Mstari wa Ahadi</label><textarea id="pe-ahadiText" rows="3" style="resize:vertical;">Mimi [Jina la Mzazi] ([Uhusiano]) nakubali na maagizo yote ya shule. Naahidi mwanagu akienda tofauti afukuzwe shule.</textarea></div>
+            </div>
+          </div>
+          <div class="pdf-editor-right">
+            <h4 style="font-size:0.85rem;font-weight:800;color:var(--form5);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Muonekano wa PDF</h4>
+            <div class="pdf-preview-mini" id="pe-preview">
+              <h5 id="pe-prev-schoolName">SHULE YA SEKONDARI TABORA WAVULANA</h5>
+              <div style="text-align:center;color:#553c9a;font-size:0.7rem;margin-bottom:4px;" id="pe-prev-formTitle">FOMU YA KUJIANDIKISHA – KIDATO CHA 5 2026</div>
+              <div style="text-align:center;color:#888;font-size:0.65rem;margin-bottom:12px;" id="pe-prev-contact">S.L.P 374, Tabora</div>
+              <div id="pe-prev-sections"></div>
+              <div style="border-top:1px solid #ddd;margin-top:10px;padding-top:6px;font-size:0.65rem;color:#888;text-align:center;" id="pe-prev-footer"></div>
+            </div>
+            <div style="margin-top:16px; background:#faf5ff; border:1px solid #e9d8fd; border-radius:8px; padding:12px; font-size:0.8rem; color:#553c9a;">
+              <i class="fas fa-lightbulb" style="margin-right:6px;"></i>
+              <strong>Kidokezo:</strong> Mabadiliko yatatekelezwa wakati wa kuzalisha PDF. Bonyeza "Tekeleza" kuhifadhi.
+            </div>
+          </div>
+        </div>
+        <div class="pdf-editor-footer">
+          <button class="pdf-ed-btn pdf-ed-reset" onclick="resetPdfLayout()"><i class="fas fa-history" style="margin-right:6px;"></i>Rejesha Mwanzo</button>
+          <button class="pdf-ed-btn pdf-ed-cancel" onclick="closePdfEditor()">Ghairi</button>
+          <button class="pdf-ed-btn pdf-ed-apply" onclick="applyPdfLayout()"><i class="fas fa-check" style="margin-right:6px;"></i>Tekeleza Mabadiliko</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORM HEADER -->
+    <div class="form-header">
+      <div class="govt-text">Jamhuri ya Muungano wa Tanzania • Ofisi ya Waziri Mkuu - TAMISEMI • Halmashauri ya Manispaa ya Tabora</div>
+      <div class="school-logo">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0OCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMWEzNjVkIiBzdHJva2Utd2lkdGg9IjMiLz48dGV4dCB4PSI1MCIgeT0iNDUiIGZvbnQtZmFtaWx5PSJzZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzFhMzY1ZCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC13ZWlnaHQ9ImJvbGQiPlRCU1M8L3RleHQ+PHRleHQgeD0iNTAiIHk9IjYyIiBmb250LWZhbWlseT0ic2VyaWYiIGZvbnQtc2l6ZT0iOCIgZmlsbD0iIzFhMzY1ZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RVNULiAxOTI1PC90ZXh0PjwvYXZnPg==" alt="TBSS Logo" onerror="this.style.display='none'">
+      </div>
+      <div class="form5-badge"><i class="fas fa-graduation-cap" style="margin-right:5px;"></i>Kidato cha 5 – A-Level</div>
+      <h1>Shule ya Sekondari Tabora Wavulana</h1>
+      <h2>Fomu ya Kujiandikisha – Kidato cha 5, 2026</h2>
+      <p>Tafadhali jaza fomu hii kwa usahihi. Sehemu zenye alama <strong>*</strong> ni za lazima.</p>
+      <div id="serverStatus">
+        <span class="status-badge offline" id="statusBadge"><i class="fas fa-circle" style="font-size:0.6rem;margin-right:4px;"></i>Inaangalia seva...</span>
+      </div>
+    </div>
+
+    <div class="form-container">
+      <div id="successMessage" class="success-message"></div>
+
+      <form id="registrationForm" novalidate>
+
+        <!-- ===== PICHA ZA PASIPOTI ===== -->
+        <div class="form-section">
+          <div class="section-title"><span class="section-icon"><i class="fas fa-camera"></i></span>Picha za Pasipoti</div>
+          <div class="info-note"><i class="fas fa-info-circle" style="margin-right:6px;"></i>Pakia picha 4 za pasipoti (rangi, mandhari nyeupe). Picha ya kwanza ni ya mwanafunzi.</div>
+          <div class="photo-grid">
+            <div class="photo-slot">
+              <label>Picha Na. 1</label>
+              <div class="image-preview" id="imagePreview1" onclick="document.getElementById('photo1').click()">
+                <div class="image-preview-placeholder"><i class="fas fa-user" style="display:block;font-size:1.5rem;margin-bottom:6px;color:#aaa;"></i>Mwanafunzi</div>
+              </div>
+              <div class="photo-caption">📸 Mwanafunzi</div>
+              <input type="file" id="photo1" accept="image/*" style="display:none" onchange="handleImageUpload(event,'imagePreview1','photo1data')">
+            </div>
+            <div class="photo-slot">
+              <label>Picha Na. 2</label>
+              <div class="image-preview" id="imagePreview2" onclick="document.getElementById('photo2').click()">
+                <div class="image-preview-placeholder"><i class="fas fa-male" style="display:block;font-size:1.5rem;margin-bottom:6px;color:#aaa;"></i>Baba</div>
+              </div>
+              <div class="photo-caption">📌 Baba</div>
+              <input type="file" id="photo2" accept="image/*" style="display:none" onchange="handleImageUpload(event,'imagePreview2','photo2data')">
+            </div>
+            <div class="photo-slot">
+              <label>Picha Na. 3</label>
+              <div class="image-preview" id="imagePreview3" onclick="document.getElementById('photo3').click()">
+                <div class="image-preview-placeholder"><i class="fas fa-female" style="display:block;font-size:1.5rem;margin-bottom:6px;color:#aaa;"></i>Mama</div>
+              </div>
+              <div class="photo-caption">📌 Mama</div>
+              <input type="file" id="photo3" accept="image/*" style="display:none" onchange="handleImageUpload(event,'imagePreview3','photo3data')">
+            </div>
+            <div class="photo-slot">
+              <label>Picha Na. 4</label>
+              <div class="image-preview" id="imagePreview4" onclick="document.getElementById('photo4').click()">
+                <div class="image-preview-placeholder"><i class="fas fa-user-shield" style="display:block;font-size:1.5rem;margin-bottom:6px;color:#aaa;"></i>Mlezi</div>
+              </div>
+              <div class="photo-caption">📌 Mlezi/Guardian</div>
+              <input type="file" id="photo4" accept="image/*" style="display:none" onchange="handleImageUpload(event,'imagePreview4','photo4data')">
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== TAARIFA ZA MWANAFUNZI ===== -->
+        <div class="form-section">
+          <div class="section-title"><span class="section-icon"><i class="fas fa-user-graduate"></i></span>1. Taarifa za Mwanafunzi</div>
+          <div class="form-row form-row-3">
+            <div class="form-group">
+              <label for="jina1">Jina la Kwanza <span>*</span></label>
+              <input type="text" id="jina1" class="form-input" placeholder="Jina la kwanza" required>
+            </div>
+            <div class="form-group">
+              <label for="jina2">Jina la Kati</label>
+              <input type="text" id="jina2" class="form-input" placeholder="Jina la kati">
+            </div>
+            <div class="form-group">
+              <label for="jina3">Jina la Mwisho <span>*</span></label>
+              <input type="text" id="jina3" class="form-input" placeholder="Jina la familia" required>
+            </div>
+          </div>
+          <div class="form-row form-row-3">
+            <div class="form-group">
+              <label for="tarehe">Tarehe ya Kuzaliwa <span>*</span></label>
+              <input type="date" id="tarehe" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label for="jinsia">Jinsia <span>*</span></label>
+              <select id="jinsia" class="form-input" required>
+                <option value="">Chagua</option>
+                <option>Kiume</option>
+                <option>Kike</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="uraia">Uraia <span>*</span></label>
+              <input type="text" id="uraia" class="form-input" value="Mtanzania" required>
+            </div>
+          </div>
+          <div class="form-row form-row-3">
+            <div class="form-group">
+              <label for="wilayaKuzaliwa">Wilaya Aliyozaliwa <span>*</span></label>
+              <input type="text" id="wilayaKuzaliwa" class="form-input" placeholder="Jina la wilaya" required>
+            </div>
+            <div class="form-group">
+              <label for="dini">Dini <span>*</span></label>
+              <select id="dini" class="form-input" required>
+                <option value="">Chagua dini</option>
+                <option>Ukristo</option>
+                <option>Uislamu</option>
+                <option>Nyingine</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="admissionNo">Nambari ya Udahili</label>
+              <input type="text" id="admissionNo" class="form-input" placeholder="mfano: TBS/F5/2026/001">
+            </div>
+          </div>
+          <div class="form-row form-row-2">
+            <div class="form-group">
+              <label for="indexNoOlevel">Nambari ya Index (O-Level) <span>*</span></label>
+              <input type="text" id="indexNoOlevel" class="form-input" placeholder="mfano: S0123/0001/2024" required>
+            </div>
+            <div class="form-group">
+              <label for="shuleIliyotoka">Shule ya O-Level Aliyotoka <span>*</span></label>
+              <input type="text" id="shuleIliyotoka" class="form-input" placeholder="Jina kamili la shule" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== MKONDO WA MASOMO (COMBINATION) ===== -->
+        <div class="form-section">
+          <div class="section-title"><span class="section-icon"><i class="fas fa-book-open"></i></span>2. Mkondo wa Masomo (Combination) <span style="color:var(--danger)">*</span></div>
+          <div class="info-note">
+            <i class="fas fa-info-circle" style="margin-right:6px;"></i>
+            Chagua mkondo mmoja wa masomo unaotaka kusomea Kidato cha 5 na 6. Mkondo huu utategemea matokeo yako ya O-Level.
+          </div>
+          <div class="combo-grid">
+            <div class="combo-card" onclick="selectCombo('PCB')" id="combo-PCB">
+              <div class="combo-code">PCB</div>
+              <div class="combo-name">Physics, Chemistry & Biology</div>
+              <div class="combo-subjects">
+                <span>Physics</span><span>Chemistry</span><span>Biology</span>
+                <span style="background:#fefcbf;color:#744210;">+General Studies</span>
+              </div>
+            </div>
+            <div class="combo-card" onclick="selectCombo('PAM')" id="combo-PAM">
+              <div class="combo-code">PAM</div>
+              <div class="combo-name">Physics, Advanced Mathematics & Further Mathematics</div>
+              <div class="combo-subjects">
+                <span>Physics</span><span>Advanced Maths</span><span>Further Maths</span>
+                <span style="background:#fefcbf;color:#744210;">+General Studies</span>
+              </div>
+            </div>
+            <div class="combo-card" onclick="selectCombo('HGL')" id="combo-HGL">
+              <div class="combo-code">HGL</div>
+              <div class="combo-name">History, Geography & Literature</div>
+              <div class="combo-subjects">
+                <span>History</span><span>Geography</span><span>Literature in English</span>
+                <span style="background:#fefcbf;color:#744210;">+General Studies</span>
+              </div>
+            </div>
+            <div class="combo-card" onclick="selectCombo('PMC')" id="combo-PMC">
+              <div class="combo-code">PMC</div>
+              <div class="combo-name">Physics, Mathematics & Chemistry</div>
+              <div class="combo-subjects">
+                <span>Physics</span><span>Mathematics</span><span>Chemistry</span>
+                <span style="background:#fefcbf;color:#744210;">+General Studies</span>
+              </div>
+            </div>
+          </div>
+          <input type="hidden" id="selectedCombo" required>
+          <div id="comboError" style="display:none;color:var(--danger);font-size:0.85rem;font-weight:600;margin-top:6px;"><i class="fas fa-exclamation-triangle" style="margin-right:4px;"></i>Tafadhali chagua mkondo wa masomo.</div>
+        </div>
+
+        <!-- ===== MATOKEO YA O-LEVEL ===== -->
+        <div class="form-section">
+          <div class="section-title"><span class="section-icon"><i class="fas fa-chart-bar"></i></span>3. Matokeo ya O-Level (CSEE)</div>
+          <div class="info-note"><i class="fas fa-info-circle" style="margin-right:6px;"></i>Jaza alama ulizopata katika mtihani wa CSEE. Andika daraja (A, B, C, D, F) na pointi (1–9).</div>
+          <div class="form-row form-row-3">
+            <div class="form-group">
+              <label for="cseeIndexNo">Nambari ya CSEE Index</label>
+              <input type="text" id="cseeIndexNo" class="form-input" placeholder="S0123/0001/2024">
+            </div>
+            <div class="form-group">
+              <label for="cseeYear">Mwaka wa CSEE <span>*</span></label>
+              <select id="cseeYear" class="form-input" required>
+                <option value="">Chagua mwaka</option>
+                <option>2024</option><option>2023</option><option>2022</option><option>2021</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="cseeDivision">Daraja la CSEE <span>*</span></label>
+              <select id="cseeDivision" class="form-input" required>
+                <option value="">Chagua daraja</option>
+                <option value="I">Division I</option>
+                <option value="II">Division II</option>
+                <option value="III">Division III</option>
+                <option value="IV">Division IV</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row form-row-2">
+            <div class="form-group">
+              <label for="cseePoints">Jumla ya Pointi za CSEE</label>
+              <input type="number" id="cseePoints" class="form-input" placeholder="mfano: 14" min="7" max="36">
+            </div>
+            <div class="form-group">
+              <label for="cseeAggregates">Aggregate (Best 7 Subjects)</label>
+              <input type="number" id="cseeAggregates" class="form-input" placeholder="mfano: 12" min="7" max="36">
+            </div>
+          </div>
+          <!-- Subject results table -->
+          <h4 style="color:var(--form5);font-size:0.95rem;font-weight:700;margin-bottom:12px;margin-top:10px;"><i class="fas fa-table" style="margin-right:6px;"></i>Matokeo ya Masomo ya O-Level</h4>
+          <div style="overflow-x:auto;">
+            <table class="results-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Somo</th>
+                  <th>Daraja (A–F)</th>
+                  <th>Pointi (1–9)</th>
+                </tr>
+              </thead>
+              <tbody id="resultsTableBody">
+                <!-- Filled by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ===== MAKAZI YA SASA ===== -->
+        <div class="form-section">
+          <div class="section-title"><span class="section-icon"><i class="fas fa-home"></i></span>4. Makazi ya Mwanafunzi kwa Sasa</div>
+          <div class="form-row form-row-3">
+            <div class="form-group">
+              <label for="mkoa">Mkoa <span>*</span></label>
+              <input type="text" id="mkoa" class="form-input" placeholder="Mkoa" required>
+            </div>
+            <div class="form-group">
+              <label for="wilayaMakazi">Wilaya <span>*</span></label>
+              <input type="text" id="wilayaMakazi" class="form-input" placeholder="Wilaya" required>
+            </div>
+            <div class="form-group">
+              <label for="tarafa">Tarafa <span>*</span></label>
+              <input type="text" id="tarafa" class="form-input" placeholder="Tarafa" required>
+            </div>
+          </div>
+          <div class="form-row form-row-3">
+            <div class="form-group">
+              <label for="kata">Kata <span>*</span></label>
+              <input type="text" id="kata" class="form-input" placeholder="Kata" required>
+            </div>
+            <div class="form-group">
+              <label for="kijiji">Mtaa / Kijiji <span>*</span></label>
+              <input type="text" id="kijiji" class="form-input" placeholder="Mtaa au Kijiji" required>
+            </div>
+            <div class="form-group">
+              <label for="nambariNyumba">Namba ya Nyumba</label>
+              <input type="text" id="nambariNyumba" class="form-input" placeholder="Nambari ya nyumba">
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== TAARIFA ZA WAZAZI ===== -->
+        <div class="form-section">
+          <div class="section-title"><span class="section-icon"><i class="fas fa-users"></i></span>5. Taarifa za Wazazi / Walezi</div>
+          <h4 style="color:var(--secondary);margin-bottom:14px;font-size:1rem;"><i class="fas fa-male" style="margin-right:6px;color:var(--secondary);"></i>Baba</h4>
+          <div class="form-row form-row-2">
+            <div class="form-group">
+              <label for="babaNjina">Jina Kamili la Baba <span>*</span></label>
+              <input type="text" id="babaNjina" class="form-input" placeholder="Jina kamili la baba" required>
+            </div>
+            <div class="form-group">
+              <label for="babaSimu">Namba ya Simu ya Baba <span>*</span></label>
+              <input type="tel" id="babaSimu" class="form-input" placeholder="+255 XXX XXX XXX" required>
+            </div>
+          </div>
+          <h4 style="color:var(--secondary);margin-bottom:14px;margin-top:10px;font-size:1rem;"><i class="fas fa-female" style="margin-right:6px;color:var(--secondary);"></i>Mama</h4>
+          <div class="form-row form-row-2">
+            <div class="form-group">
+              <label for="mamaNjina">Jina Kamili la Mama <span>*</span></label>
+              <input type="text" id="mamaNjina" class="form-input" placeholder="Jina kamili la mama" required>
+            </div>
+            <div class="form-group">
+              <label for="mamaSimu">Namba ya Simu ya Mama <span>*</span></label>
+              <input type="tel" id="mamaSimu" class="form-input" placeholder="+255 XXX XXX XXX" required>
+            </div>
+          </div>
+          <h4 style="color:var(--secondary);margin-bottom:14px;margin-top:10px;font-size:1rem;"><i class="fas fa-user-shield" style="margin-right:6px;color:var(--secondary);"></i>Mlezi (kama si mzazi)</h4>
+          <div class="form-row form-row-2">
+            <div class="form-group">
+              <label for="mleziJina">Jina Kamili la Mlezi</label>
+              <input type="text" id="mleziJina" class="form-input" placeholder="Jina la mlezi (kama yupo)">
+            </div>
+            <div class="form-group">
+              <label for="mleziSimu">Namba ya Simu ya Mlezi</label>
+              <input type="tel" id="mleziSimu" class="form-input" placeholder="+255 XXX XXX XXX">
+            </div>
+          </div>
+          <div class="form-row form-row-2" style="margin-top:10px;">
+            <div class="form-group">
+              <label for="mzaziAnwani">Anwani ya Mzazi/Mlezi Mkuu <span>*</span></label>
+              <textarea id="mzaziAnwani" class="form-input" placeholder="Anwani kamili – S.L.P au nyumba" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="mzaziEmail">Barua Pepe ya Mzazi/Mlezi</label>
+              <input type="email" id="mzaziEmail" class="form-input" placeholder="mzazi@mfano.com">
+              <small style="color:#888;font-size:0.8rem;">Fomu itumwa kwa barua pepe hii</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== HALI YA AFYA ===== -->
+        <div class="form-section">
+          <div class="section-title"><span class="section-icon"><i class="fas fa-heartbeat"></i></span>6. Hali ya Afya</div>
+          <div class="form-row form-row-3">
+            <div class="form-group">
+              <label for="damu">Kundi la Damu</label>
+              <select id="damu" class="form-input">
+                <option value="">Chagua kundi</option>
+                <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+                <option>AB+</option><option>AB-</option><option>O+</option><option>O-</option>
+                <option>Haijulikani</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="bima">Ana Bima ya Afya? <span>*</span></label>
+              <select id="bima" class="form-input" required>
+                <option value="">Chagua</option>
+                <option value="Ndiyo">Ndiyo – ana bima</option>
+                <option value="Hapana">Hapana – atachangia shuleni</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="bimaAina">Aina ya Bima (kama ipo)</label>
+              <input type="text" id="bimaAina" class="form-input" placeholder="mfano: NHIF">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="magonjwa">Magonjwa / Hali Maalum za Kiafya</label>
+            <textarea id="magonjwa" class="form-input" placeholder="Taja magonjwa yoyote ya kudumu, mzio, au hali maalum. Kama hakuna, andika 'Hakuna'"></textarea>
+          </div>
+        </div>
+
+        <!-- ===== HATI ZINAZOHITAJIKA ===== -->
+        <div class="form-section">
+          <div class="section-title"><span class="section-icon"><i class="fas fa-file-alt"></i></span>7. Hati Zinazohitajika</div>
+          <div class="info-note">
+            <i class="fas fa-tasks" style="margin-right:6px;"></i>
+            Lazima ulete: (1) Cheti cha CSEE kilichothibitishwa, (2) Cheti cha kuzaliwa, (3) Fomu ya hospitali, (4) Picha 4 za pasipoti.
+          </div>
+          <div class="form-row form-row-3">
+            <div class="form-group">
+              <label for="cheetiStatus">Hali ya Cheti cha Kuzaliwa <span>*</span></label>
+              <select id="cheetiStatus" class="form-input" required>
+                <option value="">Chagua</option>
+                <option value="Kina cheti">Kina cheti cha kuzaliwa</option>
+                <option value="Inaombwa">Cheti kinaombwa</option>
+                <option value="Hakina">Hana cheti bado</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="cseeStatus">Hali ya Cheti cha CSEE <span>*</span></label>
+              <select id="cseeStatus" class="form-input" required>
+                <option value="">Chagua</option>
+                <option value="Kina cheti">Kina cheti cha CSEE</option>
+                <option value="Statement">Ana Statement of Results</option>
+                <option value="Inaombwa">Cheti kinaombwa</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="fomuD">Fomu D ya Hospitali <span>*</span></label>
+              <select id="fomuD" class="form-input" required>
+                <option value="">Chagua</option>
+                <option value="Imejazwa">Imejazwa na daktari</option>
+                <option value="Itajazwa">Itajazwa kabla ya kuripoti</option>
+              </select>
+            </div>
+          </div>
+          <!-- Vivuli vya Vyeti -->
+          <div style="margin-top:20px;">
+            <h4 style="color:var(--primary);font-size:1rem;margin-bottom:10px;font-weight:700;"><i class="fas fa-id-card" style="margin-right:6px;color:var(--form5);"></i>Pakia Kivuli cha Cheti cha Kuzaliwa</h4>
+            <div class="photo-grid">
+              <div class="photo-slot">
+                <label>Cheti – Mwanafunzi</label>
+                <div class="image-preview" id="birthCertPreview1" onclick="document.getElementById('birthCert1').click()" style="aspect-ratio:4/3;">
+                  <div class="image-preview-placeholder"><i class="fas fa-upload" style="display:block;font-size:1.5rem;margin-bottom:6px;color:#aaa;"></i>Bonyeza kupakia</div>
+                </div>
+                <div class="photo-caption">📋 Mwanafunzi</div>
+                <input type="file" id="birthCert1" accept="image/*,application/pdf" style="display:none" onchange="handleImageUpload(event,'birthCertPreview1','birthCert1data')">
+              </div>
+              <div class="photo-slot">
+                <label>Cheti – Baba</label>
+                <div class="image-preview" id="birthCertPreview2" onclick="document.getElementById('birthCert2').click()" style="aspect-ratio:4/3;">
+                  <div class="image-preview-placeholder"><i class="fas fa-upload" style="display:block;font-size:1.5rem;margin-bottom:6px;color:#aaa;"></i>Bonyeza kupakia</div>
+                </div>
+                <div class="photo-caption">📋 Baba</div>
+                <input type="file" id="birthCert2" accept="image/*,application/pdf" style="display:none" onchange="handleImageUpload(event,'birthCertPreview2','birthCert2data')">
+              </div>
+              <div class="photo-slot">
+                <label>Cheti – Mama</label>
+                <div class="image-preview" id="birthCertPreview3" onclick="document.getElementById('birthCert3').click()" style="aspect-ratio:4/3;">
+                  <div class="image-preview-placeholder"><i class="fas fa-upload" style="display:block;font-size:1.5rem;margin-bottom:6px;color:#aaa;"></i>Bonyeza kupakia</div>
+                </div>
+                <div class="photo-caption">📋 Mama</div>
+                <input type="file" id="birthCert3" accept="image/*,application/pdf" style="display:none" onchange="handleImageUpload(event,'birthCertPreview3','birthCert3data')">
+              </div>
+              <div class="photo-slot">
+                <label>Cheti – Mlezi</label>
+                <div class="image-preview" id="birthCertPreview4" onclick="document.getElementById('birthCert4').click()" style="aspect-ratio:4/3;">
+                  <div class="image-preview-placeholder"><i class="fas fa-upload" style="display:block;font-size:1.5rem;margin-bottom:6px;color:#aaa;"></i>Bonyeza kupakia</div>
+                </div>
+                <div class="photo-caption">📋 Mlezi</div>
+                <input type="file" id="birthCert4" accept="image/*,application/pdf" style="display:none" onchange="handleImageUpload(event,'birthCertPreview4','birthCert4data')">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== AHADI / SAINI ===== -->
+        <div class="form-section">
+          <div class="section-title"><span class="section-icon"><i class="fas fa-signature"></i></span>8. Ahadi na Saini</div>
+          <div class="ahadi-box">
+            <h4><i class="fas fa-handshake" style="margin-right:8px;"></i>Ahadi ya Mwanafunzi na Mzazi/Mlezi</h4>
+            <p>Mimi <strong id="studentNameDisplay">………………………………………</strong>, mwanafunzi, nakiri kwamba taarifa zote nilizotoa katika fomu hii ni za kweli na sahihi.
+            Nakubali kufuata sheria, kanuni na miongozo yote ya Shule ya Sekondari Tabora Wavulana.
+            Naahidi kufanya bidii masomoni na kuheshimu walimu, wenzangu na mali za shule.</p>
+            <p style="margin-top:10px;">Mimi <strong id="guardianNameDisplay">………………………………………</strong> (mzazi/mlezi), nakubali na maagizo yote ya shule. Naahidi kuwajibika kikamilifu kwa mwanafunzi huyu.</p>
+          </div>
+          <div class="form-row form-row-2">
+            <div class="form-group">
+              <label for="mzaziJina">Jina la Mzazi/Mlezi Anayesaini <span>*</span></label>
+              <input type="text" id="mzaziJina" class="form-input" placeholder="Jina kamili" required>
+            </div>
+            <div class="form-group">
+              <label for="uhusiano">Uhusiano na Mwanafunzi <span>*</span></label>
+              <select id="uhusiano" class="form-input" required>
+                <option value="">Chagua</option>
+                <option>Baba</option><option>Mama</option><option>Mlezi</option>
+                <option>Ndugu</option><option>Shangazi</option><option>Mjomba</option><option>Mwingine</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row form-row-2">
+            <div class="form-group">
+              <label>Saini ya Mwanafunzi</label>
+              <div class="signature-pad-wrap"><canvas id="studentSigCanvas" width="400" height="120"></canvas></div>
+              <div class="sig-actions"><button type="button" class="sig-clear-btn" onclick="clearSignature('studentSigCanvas')"><i class="fas fa-eraser"></i> Futa</button></div>
+            </div>
+            <div class="form-group">
+              <label>Saini ya Mzazi/Mlezi</label>
+              <div class="signature-pad-wrap"><canvas id="guardianSigCanvas" width="400" height="120"></canvas></div>
+              <div class="sig-actions"><button type="button" class="sig-clear-btn" onclick="clearSignature('guardianSigCanvas')"><i class="fas fa-eraser"></i> Futa</button></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="submit-section">
+          <button type="button" class="reset-btn" onclick="resetForm()"><i class="fas fa-redo btn-icon"></i>Anza Upya</button>
+          <button type="button" class="download-btn" id="downloadBtn" onclick="downloadPDF()"><i class="fas fa-file-download btn-icon"></i>Pakua PDF</button>
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <span id="submitBtnText"><i class="fas fa-paper-plane btn-icon"></i>Wasilisha Fomu</span>
+            <div class="spinner"></div>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- PDF PREVIEW (hidden) -->
+  <div id="pdfPreview">
+    <div class="pdf-header">
+      <img class="pdf-header-logo" src="" alt="Logo" id="pdf-logo" onerror="this.style.display='none'">
+      <div class="pdf-header-text">
+        <div class="pdf-govt" id="pdf-govtText">Jamhuri ya Muungano wa Tanzania • TAMISEMI • Halmashauri ya Manispaa ya Tabora</div>
+        <h1 id="pdf-schoolName">SHULE YA SEKONDARI TABORA WAVULANA</h1>
+        <h2 id="pdf-formTitle">FOMU YA KUJIANDIKISHA – KIDATO CHA 5 2026</h2>
+        <p id="pdf-contact">S.L.P 374, Tabora | Simu: 0755297005 | Uutawalataboraschool@gmail.com</p>
+      </div>
+    </div>
+
+    <div class="pdf-content">
+      <div class="pdf-main">
+        <div class="pdf-section" id="pdf-sec-student">
+          <div class="pdf-section-title">1. Taarifa za Mwanafunzi</div>
+          <div style="margin-bottom:6px;">
+            <span class="pdf-combo-badge" id="pdf-combo"></span>
+          </div>
+          <div class="pdf-row">
+            <div class="pdf-field"><div class="pdf-label">Jina Kamili:</div><div class="pdf-value" id="pdf-jinaKamili"></div></div>
+            <div class="pdf-field"><div class="pdf-label">Nambari ya Udahili:</div><div class="pdf-value" id="pdf-admNo"></div></div>
+          </div>
+          <div class="pdf-row pdf-row-3">
+            <div class="pdf-field"><div class="pdf-label">Tarehe ya Kuzaliwa:</div><div class="pdf-value" id="pdf-tarehe"></div></div>
+            <div class="pdf-field"><div class="pdf-label">Uraia:</div><div class="pdf-value" id="pdf-uraia"></div></div>
+            <div class="pdf-field"><div class="pdf-label">Dini:</div><div class="pdf-value" id="pdf-dini"></div></div>
+          </div>
+          <div class="pdf-row">
+            <div class="pdf-field"><div class="pdf-label">Shule ya O-Level:</div><div class="pdf-value" id="pdf-shuleIliyotoka"></div></div>
+            <div class="pdf-field"><div class="pdf-label">Index No (O-Level):</div><div class="pdf-value" id="pdf-indexNo"></div></div>
+          </div>
+        </div>
+
+        <div class="pdf-section" id="pdf-sec-results">
+          <div class="pdf-section-title">2. Matokeo ya O-Level (CSEE)</div>
+          <div class="pdf-row pdf-row-3">
+            <div class="pdf-field"><div class="pdf-label">Mwaka wa CSEE:</div><div class="pdf-value" id="pdf-cseeYear"></div></div>
+            <div class="pdf-field"><div class="pdf-label">Daraja:</div><div class="pdf-value" id="pdf-cseeDivision"></div></div>
+            <div class="pdf-field"><div class="pdf-label">Aggregate:</div><div class="pdf-value" id="pdf-cseeAggregates"></div></div>
+          </div>
+          <table class="pdf-results-table" id="pdf-resultsTable">
+            <thead><tr><th>Somo</th><th>Daraja</th><th>Pointi</th></tr></thead>
+            <tbody id="pdf-resultsBody"></tbody>
+          </table>
+        </div>
+
+        <div class="pdf-section" id="pdf-sec-makazi">
+          <div class="pdf-section-title">3. Makazi</div>
+          <div class="pdf-row pdf-row-3">
+            <div class="pdf-field"><div class="pdf-label">Mkoa:</div><div class="pdf-value" id="pdf-mkoa"></div></div>
+            <div class="pdf-field"><div class="pdf-label">Wilaya:</div><div class="pdf-value" id="pdf-wilayaMakazi"></div></div>
+            <div class="pdf-field"><div class="pdf-label">Tarafa:</div><div class="pdf-value" id="pdf-tarafa"></div></div>
+          </div>
+          <div class="pdf-row">
+            <div class="pdf-field"><div class="pdf-label">Kata:</div><div class="pdf-value" id="pdf-kata"></div></div>
+            <div class="pdf-field"><div class="pdf-label">Mtaa/Kijiji:</div><div class="pdf-value" id="pdf-kijiji"></div></div>
+          </div>
+        </div>
+
+        <div class="pdf-section" id="pdf-sec-wazazi">
+          <div class="pdf-section-title">4. Wazazi / Walezi</div>
+          <div class="pdf-row">
+            <div class="pdf-field"><div class="pdf-label">Baba:</div><div class="pdf-value" id="pdf-baba"></div></div>
+            <div class="pdf-field"><div class="pdf-label">Mama:</div><div class="pdf-value" id="pdf-mama"></div></div>
+          </div>
+          <div class="pdf-row">
+            <div class="pdf-field"><div class="pdf-label">Mlezi:</div><div class="pdf-value" id="pdf-mlezi"></div></div>
+            <div class="pdf-field"><div class="pdf-label">Barua Pepe:</div><div class="pdf-value" id="pdf-email"></div></div>
+          </div>
+          <div class="pdf-field"><div class="pdf-label">Anwani:</div><div class="pdf-value" id="pdf-anwani"></div></div>
+        </div>
+
+        <div class="pdf-section" id="pdf-sec-afya">
+          <div class="pdf-section-title">5. Afya & Hati</div>
+          <div class="pdf-row pdf-row-3">
+            <div class="pdf-field"><div class="pdf-label">Bima ya Afya:</div><div class="pdf-value" id="pdf-bima"></div></div>
+            <div class="pdf-field"><div class="pdf-label">Cheti cha Kuzaliwa:</div><div class="pdf-value" id="pdf-cheti"></div></div>
+            <div class="pdf-field"><div class="pdf-label">Cheti cha CSEE:</div><div class="pdf-value" id="pdf-cseeStatus"></div></div>
+          </div>
+        </div>
+
+        <div class="pdf-ahadi" id="pdf-sec-ahadi">
+          <strong>Ahadi:</strong> Mimi <span id="pdf-mzaziJina"></span> (<span id="pdf-uhusiano"></span>) nakubali na maagizo yote ya shule.<br>
+          <div class="pdf-sign-row">
+            <div class="pdf-sign">
+              <div class="pdf-sign-label">Saini ya Mwanafunzi:</div>
+              <img id="pdf-studentSig" src="" alt="" style="display:none;height:50px;max-width:100%;object-fit:contain;border-bottom:1px solid #333;">
+              <div id="pdf-studentSig-line" class="pdf-sign-line"></div>
+            </div>
+            <div class="pdf-sign">
+              <div class="pdf-sign-label">Saini ya Mzazi/Mlezi:</div>
+              <img id="pdf-guardianSig" src="" alt="" style="display:none;height:50px;max-width:100%;object-fit:contain;border-bottom:1px solid #333;">
+              <div id="pdf-guardianSig-line" class="pdf-sign-line"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pdf-right">
+        <div class="pdf-photo">
+          <img id="pdf-studentPhoto" src="" alt="Picha ya Mwanafunzi" style="display:none;">
+          <div class="pdf-photo-label">Picha ya Pasipoti</div>
+        </div>
+        <div class="pdf-stamp-box" style="margin-top:15px;">Muhuri wa Shule</div>
+      </div>
+    </div>
+
+    <div class="pdf-footer">
+      <p>Tarehe ya Kujiandikisha: <span id="pdf-regDate"></span> &nbsp;|&nbsp; <span id="pdf-refNo">Kumb. Na. F.V/2025/1</span></p>
+      <p><strong>Hati hii ni rasmi ya Shule ya Sekondari Tabora Wavulana</strong></p>
+      <p id="pdf-openDate" style="margin-top:6px;font-size:7.5pt;">Shule itafunguliwa 13 Januari 2026 – Lazima ufike kabla ya saa 12:00 jioni</p>
+    </div>
+  </div>
+
+  <script>
+    // === CONFIG ===
+    const API_URL = window.location.origin + '/api';
+    const photoData = {
+      photo1data:null, photo2data:null, photo3data:null, photo4data:null,
+      birthCert1data:null, birthCert2data:null, birthCert3data:null, birthCert4data:null
+    };
+    let currentStudentData = null;
+    let serverOnline = false;
+    let selectedCombo = null;
+
+    // COMBINATION DATA
+    const COMBINATIONS = {
+      PCB: { name: 'Physics, Chemistry & Biology', subjects: ['Physics','Chemistry','Biology','General Studies','Kiswahili','English','Mathematics','History','Geography','Commerce','Bible Knowledge','Islamic Knowledge','Fine Art','Music','Home Economics'] },
+      PAM: { name: 'Physics, Adv. Mathematics & Further Maths', subjects: ['Physics','Advanced Mathematics','Further Mathematics','General Studies','Kiswahili','English','Chemistry','Biology','History','Geography','Commerce','Computer Science'] },
+      HGL: { name: 'History, Geography & Literature', subjects: ['History','Geography','Literature in English','General Studies','Kiswahili','English','Mathematics','Physics','Chemistry','Biology','Commerce','Islamic Knowledge','Bible Knowledge'] },
+      PMC: { name: 'Physics, Mathematics & Chemistry', subjects: ['Physics','Mathematics','Chemistry','General Studies','Kiswahili','English','Biology','History','Geography','Commerce','Computer Science','Further Mathematics'] }
+    };
+
+    // O-Level common subjects
+    const OLEVEL_SUBJECTS = [
+      'Kiswahili','English Language','Mathematics','Biology','Chemistry','Physics',
+      'History','Geography','Commerce','Book Keeping','Computer Studies',
+      'Bible Knowledge','Islamic Knowledge','Fine Art','Home Economics','Music','French','Agriculture'
+    ];
+
+    // Check server
+    async function checkServer() {
+      try {
+        const r = await fetch(`${API_URL}/status`, { signal: AbortSignal.timeout(3000) });
+        if (r.ok) {
+          serverOnline = true;
+          document.getElementById('statusBadge').className = 'status-badge online';
+          document.getElementById('statusBadge').innerHTML = '<i class="fas fa-circle" style="font-size:0.6rem;margin-right:4px;"></i>Seva Inapatikana';
+        }
+      } catch(e) {
+        serverOnline = false;
+        document.getElementById('statusBadge').className = 'status-badge offline';
+        document.getElementById('statusBadge').innerHTML = '<i class="fas fa-circle" style="font-size:0.6rem;margin-right:4px;"></i>Seva Haipo Mtandaoni';
+      }
+    }
+    checkServer();
+
+    // Build O-Level results table
+    function buildResultsTable() {
+      const tbody = document.getElementById('resultsTableBody');
+      tbody.innerHTML = '';
+      OLEVEL_SUBJECTS.forEach((subj, i) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${i+1}</td><td style="font-weight:600;">${subj}</td>
+          <td><input type="text" class="grade-input" id="grade_${i}" placeholder="A/B/C/D/F" maxlength="1"></td>
+          <td><input type="number" class="points-input" id="points_${i}" placeholder="1-9" min="1" max="9"></td>`;
+        tbody.appendChild(tr);
+      });
+    }
+    buildResultsTable();
+
+    function getResultsData() {
+      const results = [];
+      OLEVEL_SUBJECTS.forEach((subj, i) => {
+        const grade = document.getElementById(`grade_${i}`)?.value?.trim().toUpperCase();
+        const pts = document.getElementById(`points_${i}`)?.value?.trim();
+        if (grade || pts) {
+          results.push({ subject: subj, grade: grade || '—', points: pts || '—' });
+        }
+      });
+      return results;
+    }
+
+    // Combination selector
+    function selectCombo(code) {
+      selectedCombo = code;
+      document.getElementById('selectedCombo').value = code;
+      document.getElementById('comboError').style.display = 'none';
+      Object.keys(COMBINATIONS).forEach(k => {
+        document.getElementById(`combo-${k}`).classList.toggle('selected', k === code);
+      });
+    }
+
+    // Image upload
+    function handleImageUpload(event, previewId, dataKey) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        photoData[dataKey] = e.target.result;
+        const preview = document.getElementById(previewId);
+        preview.innerHTML = '';
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        preview.appendChild(img);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Signature pads
+    function initSignaturePad(canvasId) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let drawing = false, lastX = 0, lastY = 0;
+      function getPos(e) {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        if (e.touches) return { x: (e.touches[0].clientX - rect.left)*scaleX, y: (e.touches[0].clientY - rect.top)*scaleY };
+        return { x: (e.clientX - rect.left)*scaleX, y: (e.clientY - rect.top)*scaleY };
+      }
+      ctx.strokeStyle = '#1a365d'; ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      canvas.addEventListener('mousedown', e => { drawing=true; const p=getPos(e); lastX=p.x; lastY=p.y; });
+      canvas.addEventListener('mousemove', e => { if(!drawing) return; const p=getPos(e); ctx.beginPath(); ctx.moveTo(lastX,lastY); ctx.lineTo(p.x,p.y); ctx.stroke(); lastX=p.x; lastY=p.y; });
+      canvas.addEventListener('mouseup', () => drawing=false);
+      canvas.addEventListener('mouseleave', () => drawing=false);
+      canvas.addEventListener('touchstart', e => { e.preventDefault(); drawing=true; const p=getPos(e); lastX=p.x; lastY=p.y; }, {passive:false});
+      canvas.addEventListener('touchmove', e => { e.preventDefault(); if(!drawing) return; const p=getPos(e); ctx.beginPath(); ctx.moveTo(lastX,lastY); ctx.lineTo(p.x,p.y); ctx.stroke(); lastX=p.x; lastY=p.y; }, {passive:false});
+      canvas.addEventListener('touchend', () => drawing=false);
+    }
+    function clearSignature(id) { document.getElementById(id).getContext('2d').clearRect(0,0,400,120); }
+    function isCanvasEmpty(id) { const d = document.getElementById(id).getContext('2d').getImageData(0,0,400,120).data; return !d.some(v => v !== 0); }
+    function getSignatureDataURL(id) { return isCanvasEmpty(id) ? null : document.getElementById(id).toDataURL('image/png'); }
+    initSignaturePad('studentSigCanvas');
+    initSignaturePad('guardianSigCanvas');
+
+    // Live name update
+    ['jina1','jina2','jina3'].forEach(id => document.getElementById(id).addEventListener('input', updateNames));
+    document.getElementById('mzaziJina').addEventListener('input', updateNames);
+    function updateNames() {
+      const full = ['jina1','jina2','jina3'].map(id => document.getElementById(id).value).filter(Boolean).join(' ');
+      const el = document.getElementById('studentNameDisplay');
+      if (el) el.textContent = full || '………………………………………';
+      const mzazi = document.getElementById('mzaziJina').value;
+      const el2 = document.getElementById('guardianNameDisplay');
+      if (el2) el2.textContent = mzazi || '………………………………………';
+    }
+
+    // Populate PDF preview
+    function populatePDFPreview(d) {
+      document.getElementById('pdf-jinaKamili').textContent = `${d.jina1} ${d.jina2||''} ${d.jina3}`.trim();
+      document.getElementById('pdf-admNo').textContent = d.admissionNo || '—';
+      document.getElementById('pdf-combo').textContent = `Mkondo: ${d.combination} – ${COMBINATIONS[d.combination]?.name || ''}`;
+      document.getElementById('pdf-tarehe').textContent = d.tarehe ? new Date(d.tarehe).toLocaleDateString('sw-TZ') : '—';
+      document.getElementById('pdf-uraia').textContent = d.uraia;
+      document.getElementById('pdf-dini').textContent = d.dini;
+      document.getElementById('pdf-shuleIliyotoka').textContent = d.shuleIliyotoka;
+      document.getElementById('pdf-indexNo').textContent = d.indexNoOlevel || '—';
+      document.getElementById('pdf-cseeYear').textContent = d.cseeYear || '—';
+      document.getElementById('pdf-cseeDivision').textContent = d.cseeDivision ? `Division ${d.cseeDivision}` : '—';
+      document.getElementById('pdf-cseeAggregates').textContent = d.cseeAggregates || '—';
+      document.getElementById('pdf-mkoa').textContent = d.mkoa;
+      document.getElementById('pdf-wilayaMakazi').textContent = d.wilayaMakazi;
+      document.getElementById('pdf-tarafa').textContent = d.tarafa;
+      document.getElementById('pdf-kata').textContent = d.kata;
+      document.getElementById('pdf-kijiji').textContent = d.kijiji;
+      document.getElementById('pdf-baba').textContent = `${d.babaNjina} | ${d.babaSimu}`;
+      document.getElementById('pdf-mama').textContent = `${d.mamaNjina} | ${d.mamaSimu}`;
+      document.getElementById('pdf-mlezi').textContent = d.mleziJina ? `${d.mleziJina} | ${d.mleziSimu}` : '—';
+      document.getElementById('pdf-anwani').textContent = d.mzaziAnwani;
+      document.getElementById('pdf-email').textContent = d.mzaziEmail || '—';
+      document.getElementById('pdf-bima').textContent = d.bima;
+      document.getElementById('pdf-cheti').textContent = d.cheetiStatus;
+      document.getElementById('pdf-cseeStatus').textContent = d.cseeStatus;
+      document.getElementById('pdf-mzaziJina').textContent = d.mzaziJina;
+      document.getElementById('pdf-uhusiano').textContent = d.uhusiano;
+      document.getElementById('pdf-regDate').textContent = new Date(d.registrationDate).toLocaleDateString('sw-TZ');
+
+      // Results table
+      const tbody = document.getElementById('pdf-resultsBody');
+      tbody.innerHTML = '';
+      (d.results || []).forEach(r => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${r.subject}</td><td style="text-align:center;font-weight:700;">${r.grade}</td><td style="text-align:center;">${r.points}</td>`;
+        tbody.appendChild(tr);
+      });
+
+      // Photo
+      const pdfPhoto = document.getElementById('pdf-studentPhoto');
+      if (photoData.photo1data) { pdfPhoto.src = photoData.photo1data; pdfPhoto.style.display = 'block'; } 
+      else { pdfPhoto.style.display = 'none'; }
+
+      // Signatures
+      const stuSig = getSignatureDataURL('studentSigCanvas');
+      const grdSig = getSignatureDataURL('guardianSigCanvas');
+      const ps = document.getElementById('pdf-studentSig');
+      const pl = document.getElementById('pdf-studentSig-line');
+      if (stuSig) { ps.src=stuSig; ps.style.display='block'; pl.style.display='none'; } else { ps.style.display='none'; pl.style.display='block'; }
+      const pg = document.getElementById('pdf-guardianSig');
+      const pgl = document.getElementById('pdf-guardianSig-line');
+      if (grdSig) { pg.src=grdSig; pg.style.display='block'; pgl.style.display='none'; } else { pg.style.display='none'; pgl.style.display='block'; }
+
+      // Apply PDF layout
+      applyLayoutToPdfPreview();
+    }
+
+    function addPageHeader(pdf, studentName, pageLabel) {
+      pdf.setFillColor(85, 60, 154);
+      pdf.rect(0, 0, 210, 18, 'F');
+      pdf.setTextColor(255, 255, 255);
+      pdf.setFontSize(9); pdf.setFont('helvetica', 'bold');
+      pdf.text('SHULE YA SEKONDARI TABORA WAVULANA', 105, 7, { align: 'center' });
+      pdf.setFontSize(8); pdf.setFont('helvetica', 'normal');
+      pdf.text(`Fomu ya Kujiandikisha – Kidato cha 5 2026 | ${selectedCombo || ''}`, 105, 12.5, { align: 'center' });
+      pdf.text('Mwanafunzi: ' + studentName + '    |    ' + pageLabel, 105, 17, { align: 'center' });
+      pdf.setTextColor(0, 0, 0);
+    }
+
+    async function addPhotoPage(pdf, imgDataUrl, title, subtitle, studentName, pageLabel) {
+      pdf.addPage();
+      addPageHeader(pdf, studentName, pageLabel);
+      pdf.setFontSize(13); pdf.setFont('helvetica', 'bold'); pdf.setTextColor(85, 60, 154);
+      pdf.text(title, 105, 28, { align: 'center' });
+      if (subtitle) { pdf.setFontSize(10); pdf.setFont('helvetica', 'normal'); pdf.setTextColor(100,100,100); pdf.text(subtitle, 105, 35, { align: 'center' }); }
+      pdf.setTextColor(0,0,0);
+      if (imgDataUrl) {
+        const imgW=160, imgX=(210-160)/2, imgY=40, imgH=220;
+        pdf.setDrawColor(85,60,154); pdf.setLineWidth(0.7); pdf.rect(imgX-2,imgY-2,imgW+4,imgH+4);
+        try { pdf.addImage(imgDataUrl,'JPEG',imgX,imgY,imgW,imgH,undefined,'FAST'); } 
+        catch(e) { try { pdf.addImage(imgDataUrl,'PNG',imgX,imgY,imgW,imgH,undefined,'FAST'); } catch(e2){} }
+      } else {
+        pdf.setFontSize(11); pdf.setTextColor(150,150,150); pdf.text('[ Picha haikupakiwa ]',105,140,{align:'center'}); pdf.setTextColor(0,0,0);
+      }
+      pdf.setFontSize(7.5); pdf.setTextColor(120,120,120);
+      pdf.text('Hati hii ni rasmi ya Shule ya Sekondari Tabora Wavulana',105,288,{align:'center'});
+      pdf.setTextColor(0,0,0);
+    }
+
+    async function generatePDF() {
+      if (!currentStudentData) { alert('Tafadhali wasilisha fomu kwanza!'); return null; }
+      populatePDFPreview(currentStudentData);
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF('p','mm','a4');
+      const element = document.getElementById('pdfPreview');
+      element.style.left='0'; element.style.top='0';
+      const canvas = await html2canvas(element, { scale:2, useCORS:true, logging:false, backgroundColor:'#ffffff' });
+      element.style.left='-9999px'; element.style.top='-9999px';
+      const imgData = canvas.toDataURL('image/png');
+      const imgWidth=210, imgHeight=(canvas.height*210)/canvas.width;
+      pdf.addImage(imgData,'PNG',0,0,imgWidth,Math.min(imgHeight,297));
+
+      const studentName = [currentStudentData.jina1,currentStudentData.jina2,currentStudentData.jina3].filter(Boolean).join(' ');
+
+      // Parent photos page
+      pdf.addPage();
+      addPageHeader(pdf, studentName, 'Ukurasa wa 2 – Picha za Wazazi');
+      pdf.setFontSize(13); pdf.setFont('helvetica','bold'); pdf.setTextColor(85,60,154);
+      pdf.text('PICHA ZA WAZAZI / GUARDIAN', 105, 28, {align:'center'});
+      pdf.setFontSize(9); pdf.setFont('helvetica','normal'); pdf.setTextColor(80,80,80);
+      pdf.text('Picha hizi zinahitajika kwa utambulisho rasmi wa wazazi/walezi', 105, 34, {align:'center'});
+      pdf.setTextColor(0,0,0);
+      const parentPhotos = [
+        {key:'photo2data', title:'Picha ya Baba', subtitle:currentStudentData.babaNjina||'Baba'},
+        {key:'photo3data', title:'Picha ya Mama', subtitle:currentStudentData.mamaNjina||'Mama'},
+        {key:'photo4data', title:'Picha ya Mlezi/Guardian', subtitle:currentStudentData.mleziJina||'Mlezi'},
+      ];
+      const photoW=55, photoH=73, startX=[15,78,141], startY=42;
+      parentPhotos.forEach((p,i) => {
+        const x=startX[i], y=startY;
+        pdf.setDrawColor(85,60,154); pdf.setLineWidth(0.5); pdf.rect(x,y,photoW,photoH);
+        if (photoData[p.key]) {
+          try { pdf.addImage(photoData[p.key],'JPEG',x,y,photoW,photoH,undefined,'FAST'); }
+          catch(e) { try { pdf.addImage(photoData[p.key],'PNG',x,y,photoW,photoH,undefined,'FAST'); } catch(e2){} }
+        } else {
+          pdf.setFillColor(245,240,255); pdf.rect(x,y,photoW,photoH,'F');
+          pdf.setFontSize(8); pdf.setTextColor(150,150,150); pdf.text('[ Picha haikupakiwa ]',x+photoW/2,y+photoH/2,{align:'center'}); pdf.setTextColor(0,0,0);
+        }
+        pdf.setFontSize(9); pdf.setFont('helvetica','bold'); pdf.setTextColor(85,60,154);
+        pdf.text(p.title,x+photoW/2,y+photoH+6,{align:'center'});
+        pdf.setFontSize(8); pdf.setFont('helvetica','normal'); pdf.setTextColor(60,60,60);
+        const sub=p.subtitle?pdf.splitTextToSize(p.subtitle,photoW):[];
+        if(sub.length) pdf.text(sub,x+photoW/2,y+photoH+11,{align:'center'});
+        pdf.setTextColor(0,0,0);
+      });
+      pdf.setFontSize(7.5); pdf.setTextColor(120,120,120);
+      pdf.text('Hati hii ni rasmi ya Shule ya Sekondari Tabora Wavulana',105,288,{align:'center'});
+      pdf.setTextColor(0,0,0);
+
+      // Birth cert pages
+      const certPhotos = [
+        {key:'birthCert1data', title:'Cheti cha Kuzaliwa – Mwanafunzi', subtitle:studentName, pageLabel:'Cheti cha Kuzaliwa – Mwanafunzi'},
+        {key:'birthCert2data', title:'Cheti cha Kuzaliwa – Baba', subtitle:currentStudentData.babaNjina||'', pageLabel:'Cheti cha Kuzaliwa – Baba'},
+        {key:'birthCert3data', title:'Cheti cha Kuzaliwa – Mama', subtitle:currentStudentData.mamaNjina||'', pageLabel:'Cheti cha Kuzaliwa – Mama'},
+        {key:'birthCert4data', title:'Cheti cha Kuzaliwa – Mlezi', subtitle:currentStudentData.mleziJina||'', pageLabel:'Cheti cha Kuzaliwa – Mlezi'},
+      ];
+      let certPageNum = 3;
+      for (const cert of certPhotos) {
+        await addPhotoPage(pdf, photoData[cert.key], cert.title, cert.subtitle, studentName, `Ukurasa wa ${certPageNum} – ${cert.pageLabel}`);
+        certPageNum++;
+      }
+      return pdf;
+    }
+
+    async function downloadPDF() {
+      const pdf = await generatePDF();
+      if (!pdf) return;
+      const name = `TaboraBoys_F5_${selectedCombo}_${(currentStudentData.jina1+'_'+currentStudentData.jina3).replace(/\s/g,'_')}.pdf`;
+      pdf.save(name);
+    }
+
+    async function sendToServer(studentData, pdfBlob) {
+      const formData = new FormData();
+      formData.append('studentData', JSON.stringify({ ...studentData, formLevel: 'form5' }));
+      const admNo = (studentData.admissionNo || 'NEW').replace(/\//g,'_');
+      formData.append('pdf', pdfBlob, `${admNo}_Tabora_Boys_F5_2026.pdf`);
+      const response = await fetch(`${API_URL}/register`, { method:'POST', body:formData });
+      if (!response.ok) throw new Error('Server error');
+      return await response.json();
+    }
+
+    const form = document.getElementById('registrationForm');
+    const successMessage = document.getElementById('successMessage');
+    const submitBtn = document.getElementById('submitBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      // Validate combination
+      if (!selectedCombo) {
+        document.getElementById('comboError').style.display = 'block';
+        document.getElementById('combo-PCB').scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+
+      const requiredFields = form.querySelectorAll('[required]');
+      let isValid = true;
+      requiredFields.forEach(field => {
+        if (!field.value.trim()) { field.classList.add('error'); isValid = false; }
+        else { field.classList.remove('error'); }
+      });
+      if (!isValid) { alert('Tafadhali jaza sehemu zote zenye alama ya * (lazima).'); return; }
+
+      submitBtn.classList.add('loading');
+      submitBtn.disabled = true;
+
+      currentStudentData = {
+        formLevel: 'form5',
+        combination: selectedCombo,
+        jina1: document.getElementById('jina1').value.trim(),
+        jina2: document.getElementById('jina2').value.trim(),
+        jina3: document.getElementById('jina3').value.trim(),
+        admissionNo: document.getElementById('admissionNo').value.trim(),
+        tarehe: document.getElementById('tarehe').value,
+        jinsia: document.getElementById('jinsia').value,
+        wilayaKuzaliwa: document.getElementById('wilayaKuzaliwa').value.trim(),
+        uraia: document.getElementById('uraia').value.trim(),
+        dini: document.getElementById('dini').value,
+        indexNoOlevel: document.getElementById('indexNoOlevel').value.trim(),
+        shuleIliyotoka: document.getElementById('shuleIliyotoka').value.trim(),
+        cseeYear: document.getElementById('cseeYear').value,
+        cseeDivision: document.getElementById('cseeDivision').value,
+        cseePoints: document.getElementById('cseePoints').value,
+        cseeAggregates: document.getElementById('cseeAggregates').value,
+        cseeIndexNo: document.getElementById('cseeIndexNo').value.trim(),
+        results: getResultsData(),
+        mkoa: document.getElementById('mkoa').value.trim(),
+        wilayaMakazi: document.getElementById('wilayaMakazi').value.trim(),
+        tarafa: document.getElementById('tarafa').value.trim(),
+        kata: document.getElementById('kata').value.trim(),
+        kijiji: document.getElementById('kijiji').value.trim(),
+        nambariNyumba: document.getElementById('nambariNyumba').value.trim(),
+        babaNjina: document.getElementById('babaNjina').value.trim(),
+        babaSimu: document.getElementById('babaSimu').value.trim(),
+        mamaNjina: document.getElementById('mamaNjina').value.trim(),
+        mamaSimu: document.getElementById('mamaSimu').value.trim(),
+        mleziJina: document.getElementById('mleziJina').value.trim(),
+        mleziSimu: document.getElementById('mleziSimu').value.trim(),
+        mzaziAnwani: document.getElementById('mzaziAnwani').value.trim(),
+        mzaziEmail: document.getElementById('mzaziEmail').value.trim(),
+        damu: document.getElementById('damu').value,
+        bima: document.getElementById('bima').value,
+        bimaAina: document.getElementById('bimaAina').value.trim(),
+        magonjwa: document.getElementById('magonjwa').value.trim() || 'Hakuna',
+        cheetiStatus: document.getElementById('cheetiStatus').value,
+        cseeStatus: document.getElementById('cseeStatus').value,
+        fomuD: document.getElementById('fomuD').value,
+        mzaziJina: document.getElementById('mzaziJina').value.trim(),
+        uhusiano: document.getElementById('uhusiano').value,
+        registrationDate: new Date().toISOString()
+      };
+
+      try {
+        const pdf = await generatePDF();
+        const pdfBlob = pdf.output('blob');
+
+        if (serverOnline) {
+          try {
+            const result = await sendToServer(currentStudentData, pdfBlob);
+            if (result.success) {
+              successMessage.innerHTML = '<i class="fas fa-check-circle" style="margin-right:8px;"></i>Umefanikiwa kujiandikisha Kidato cha 5!<br><small><i class="fas fa-envelope"></i> PDF imetumwa kwa barua pepe ya shule: Uutawalataboraschool@gmail.com</small>';
+            }
+          } catch (error) {
+            successMessage.innerHTML = '<i class="fas fa-check-circle" style="margin-right:8px;"></i>Fomu imehifadhiwa!<br><small><i class="fas fa-exclamation-triangle"></i> Barua pepe haikutumwa. Unaweza kupakua PDF hapa chini.</small>';
+          }
+        } else {
+          successMessage.innerHTML = '<i class="fas fa-check-circle" style="margin-right:8px;"></i>Fomu imehifadhiwa ndani!<br><small><i class="fas fa-exclamation-triangle"></i> Seva haipo mtandaoni. Pakua PDF hapa chini.</small>';
+        }
+
+        const students = JSON.parse(localStorage.getItem('taboraBoys_F5_2026') || '[]');
+        students.push(currentStudentData);
+        localStorage.setItem('taboraBoys_F5_2026', JSON.stringify(students));
+
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+        successMessage.classList.add('show');
+        downloadBtn.classList.add('show');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setTimeout(() => successMessage.classList.remove('show'), 9000);
+
+      } catch (error) {
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+        alert('Kosa la kusindika fomu: ' + error.message);
+      }
+    });
+
+    function resetForm() {
+      if (confirm('Una uhakika unataka kufuta data yote uliojaza?')) {
+        form.reset();
+        selectedCombo = null;
+        Object.keys(COMBINATIONS).forEach(k => document.getElementById(`combo-${k}`).classList.remove('selected'));
+        ['imagePreview1','imagePreview2','imagePreview3','imagePreview4','birthCertPreview1','birthCertPreview2','birthCertPreview3','birthCertPreview4'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.innerHTML = '<div class="image-preview-placeholder"><i class="fas fa-upload" style="display:block;font-size:1.5rem;margin-bottom:6px;color:#aaa;"></i>Bonyeza kupakia</div>';
+        });
+        Object.keys(photoData).forEach(k => photoData[k] = null);
+        clearSignature('studentSigCanvas');
+        clearSignature('guardianSigCanvas');
+        currentStudentData = null;
+        successMessage.classList.remove('show');
+        downloadBtn.classList.remove('show');
+        buildResultsTable();
+        updateNames();
+      }
+    }
+
+    function goBack() {
+      if (confirm('Una uhakika unataka kurudi nyuma? Data yoyote ambayo haijahifadhiwa itapotea.')) {
+        window.history.back();
+      }
+    }
+
+    // =============================================
+    //  ADMIN PANEL
+    // =============================================
+    const ADMIN_CREDENTIALS = { user: 'admin', pass: 'admin' };
+    let adminLoggedIn = false;
+    let originalContent = {};
+
+    function openAdminLogin() {
+      if (adminLoggedIn) { adminLogout(); return; }
+      document.getElementById('adminLoginModal').style.display = 'flex';
+      document.getElementById('adminUser').value = '';
+      document.getElementById('adminPass').value = '';
+      document.getElementById('loginError').style.display = 'none';
+      setTimeout(() => document.getElementById('adminUser').focus(), 200);
+    }
+    function closeAdminLogin() { document.getElementById('adminLoginModal').style.display = 'none'; }
+
+    function doAdminLogin() {
+      const u = document.getElementById('adminUser').value.trim();
+      const p = document.getElementById('adminPass').value.trim();
+      if (u === ADMIN_CREDENTIALS.user && p === ADMIN_CREDENTIALS.pass) {
+        adminLoggedIn = true;
+        closeAdminLogin();
+        activateAdminMode();
+      } else {
+        document.getElementById('loginError').style.display = 'block';
+        document.getElementById('adminPass').value = '';
+        document.getElementById('adminPass').focus();
+      }
+    }
+
+    function activateAdminMode() {
+      document.body.classList.add('admin-mode');
+      document.getElementById('adminToolbar').style.display = 'block';
+      const btn = document.getElementById('adminLockBtn');
+      btn.classList.add('unlocked');
+      document.getElementById('lockIcon').className = 'fas fa-unlock';
+      document.getElementById('adminLockLabel').textContent = 'Msimamizi';
+      enableEditing();
+      showToast('✅ Umeingia hali ya usimamizi. Bonyeza maandishi yoyote kuhariri.');
+    }
+
+    function enableEditing() {
+      const candidates = document.querySelectorAll('.section-title, .form-group > label, .form-header h1, .form-header h2, .form-header p, .govt-text, .ahadi-box h4, .ahadi-box p, .info-note, .photo-slot label, .photo-slot .photo-caption, .combo-name, .combo-subjects');
+      candidates.forEach(el => {
+        if (el.querySelector('input, select, textarea, canvas, button')) return;
+        const key = getElementKey(el);
+        if (!originalContent[key]) originalContent[key] = { el, html: el.innerHTML };
+        el.setAttribute('contenteditable','true');
+        el.setAttribute('data-admin-editable','true');
+        el.style.minWidth = '10px';
+      });
+    }
+
+    function disableEditing() {
+      document.querySelectorAll('[data-admin-editable="true"]').forEach(el => {
+        el.removeAttribute('contenteditable');
+        el.removeAttribute('data-admin-editable');
+        el.style.minWidth = '';
+      });
+    }
+
+    function getElementKey(el) {
+      let path = '', node = el;
+      while (node && node !== document.body) {
+        const idx = Array.from(node.parentElement?.children || []).indexOf(node);
+        path = `${node.tagName}[${idx}]>` + path;
+        node = node.parentElement;
+      }
+      return path;
+    }
+
+    function saveAdminChanges() {
+      const saved = {};
+      document.querySelectorAll('[data-admin-editable="true"]').forEach(el => {
+        saved[getElementKey(el)] = el.innerHTML;
+      });
+      try {
+        localStorage.setItem('adminFormEdits_form5', JSON.stringify(saved));
+        showToast('💾 Mabadiliko yamehifadhiwa!');
+      } catch(e) { showToast('⚠️ Hitilafu ya kuhifadhi.', true); }
+    }
+
+    function resetAdminChanges() {
+      if (!confirm('Una uhakika unataka kurudisha fomu kwenye hali yake ya awali?')) return;
+      Object.values(originalContent).forEach(({ el, html }) => el.innerHTML = html);
+      localStorage.removeItem('adminFormEdits_form5');
+      showToast('↩️ Fomu imerudishwa kwenye hali ya awali.');
+    }
+
+    function adminLogout() {
+      if (!confirm('Unataka kutoka kwenye hali ya usimamizi?')) return;
+      adminLoggedIn = false;
+      document.body.classList.remove('admin-mode');
+      document.getElementById('adminToolbar').style.display = 'none';
+      disableEditing();
+      const btn = document.getElementById('adminLockBtn');
+      btn.classList.remove('unlocked');
+      document.getElementById('lockIcon').className = 'fas fa-lock';
+      document.getElementById('adminLockLabel').textContent = 'Admin';
+      showToast('🔒 Umetoka kwenye hali ya usimamizi.');
+    }
+
+    function showToast(msg, isError=false) {
+      const existing = document.querySelector('.admin-toast');
+      if (existing) existing.remove();
+      const toast = document.createElement('div');
+      toast.className = 'admin-toast';
+      toast.style.background = isError ? '#742a2a' : '#22543d';
+      toast.textContent = msg;
+      document.body.appendChild(toast);
+      setTimeout(() => { if (toast.parentNode) toast.remove(); }, 3200);
+    }
+
+    // Load saved edits
+    (function() {
+      try {
+        const stored = localStorage.getItem('adminFormEdits_form5');
+        if (!stored) return;
+        const saved = JSON.parse(stored);
+        const candidates = document.querySelectorAll('.section-title, .form-group > label, .form-header h1, .form-header h2, .form-header p, .govt-text, .ahadi-box h4, .ahadi-box p, .info-note, .photo-slot label, .photo-slot .photo-caption, .combo-name, .combo-subjects');
+        candidates.forEach(el => {
+          if (el.querySelector('input, select, textarea, canvas, button')) return;
+          const key = getElementKey(el);
+          if (saved[key] !== undefined) el.innerHTML = saved[key];
+        });
+      } catch(e) {}
+    })();
+
+    document.getElementById('adminLoginModal').addEventListener('click', function(e) {
+      if (e.target === this) closeAdminLogin();
+    });
+
+    // =============================================
+    //  PDF LAYOUT EDITOR
+    // =============================================
+    const PDF_SECTIONS_DEFAULT = [
+      { id: 'pdf-sec-student',  label: 'Taarifa za Mwanafunzi & Mkondo',   visible: true },
+      { id: 'pdf-sec-results',  label: 'Matokeo ya O-Level (CSEE)',         visible: true },
+      { id: 'pdf-sec-makazi',   label: 'Makazi',                            visible: true },
+      { id: 'pdf-sec-wazazi',   label: 'Wazazi / Walezi',                   visible: true },
+      { id: 'pdf-sec-afya',     label: 'Afya & Hati',                       visible: true },
+      { id: 'pdf-sec-ahadi',    label: 'Ahadi / Saini',                     visible: true },
+    ];
+
+    const PDF_FIELDS_DEFAULT = [
+      { id: 'pdf-jinaKamili',    label: 'Jina Kamili:' },
+      { id: 'pdf-admNo',         label: 'Nambari ya Udahili:' },
+      { id: 'pdf-tarehe',        label: 'Tarehe ya Kuzaliwa:' },
+      { id: 'pdf-uraia',         label: 'Uraia:' },
+      { id: 'pdf-dini',          label: 'Dini:' },
+      { id: 'pdf-shuleIliyotoka',label: 'Shule ya O-Level:' },
+      { id: 'pdf-indexNo',       label: 'Index No (O-Level):' },
+      { id: 'pdf-cseeYear',      label: 'Mwaka wa CSEE:' },
+      { id: 'pdf-cseeDivision',  label: 'Daraja la CSEE:' },
+      { id: 'pdf-cseeAggregates',label: 'Aggregate:' },
+      { id: 'pdf-mkoa',          label: 'Mkoa:' },
+      { id: 'pdf-wilayaMakazi',  label: 'Wilaya:' },
+      { id: 'pdf-tarafa',        label: 'Tarafa:' },
+      { id: 'pdf-kata',          label: 'Kata:' },
+      { id: 'pdf-kijiji',        label: 'Mtaa/Kijiji:' },
+      { id: 'pdf-baba',          label: 'Baba:' },
+      { id: 'pdf-mama',          label: 'Mama:' },
+      { id: 'pdf-mlezi',         label: 'Mlezi:' },
+      { id: 'pdf-anwani',        label: 'Anwani:' },
+      { id: 'pdf-email',         label: 'Barua Pepe:' },
+      { id: 'pdf-bima',          label: 'Bima ya Afya:' },
+      { id: 'pdf-cheti',         label: 'Cheti cha Kuzaliwa:' },
+      { id: 'pdf-cseeStatus',    label: 'Cheti cha CSEE:' },
+    ];
+
+    let pdfLayout = loadPdfLayout();
+
+    function loadPdfLayout() {
+      try {
+        const saved = localStorage.getItem('pdfLayout_form5');
+        if (saved) return JSON.parse(saved);
+      } catch(e) {}
+      return {
+        schoolName: 'SHULE YA SEKONDARI TABORA WAVULANA',
+        formTitle: 'FOMU YA KUJIANDIKISHA – KIDATO CHA 5 2026',
+        contact: 'S.L.P 374, Tabora | Simu: 0755297005 | Uutawalataboraschool@gmail.com',
+        govtText: 'Jamhuri ya Muungano wa Tanzania • TAMISEMI • Halmashauri ya Manispaa ya Tabora',
+        refNo: 'Kumb. Na. F.V/2025/1',
+        openDate: 'Shule itafunguliwa 13 Januari 2026 – Lazima ufike kabla ya saa 12:00 jioni',
+        ahadiText: 'Mimi [Jina la Mzazi] ([Uhusiano]) nakubali na maagizo yote ya shule.',
+        sections: JSON.parse(JSON.stringify(PDF_SECTIONS_DEFAULT)),
+        fields: JSON.parse(JSON.stringify(PDF_FIELDS_DEFAULT)),
+      };
+    }
+
+    function savePdfLayout() {
+      try { localStorage.setItem('pdfLayout_form5', JSON.stringify(pdfLayout)); } catch(e) {}
+    }
+
+    function openPdfEditor() {
+      document.getElementById('pe-schoolName').value = pdfLayout.schoolName;
+      document.getElementById('pe-formTitle').value = pdfLayout.formTitle;
+      document.getElementById('pe-contact').value = pdfLayout.contact;
+      document.getElementById('pe-govtText').value = pdfLayout.govtText;
+      document.getElementById('pe-refNo').value = pdfLayout.refNo;
+      document.getElementById('pe-openDate').value = pdfLayout.openDate;
+      document.getElementById('pe-ahadiText').value = pdfLayout.ahadiText;
+
+      const st = document.getElementById('pe-sectionToggles');
+      st.innerHTML = '';
+      pdfLayout.sections.forEach((sec, i) => {
+        const row = document.createElement('div');
+        row.className = 'section-toggle-row';
+        row.innerHTML = `<span><i class="fas fa-grip-vertical" style="color:#aaa;margin-right:8px;"></i>${sec.label}</span>
+          <button class="pdf-field-toggle ${sec.visible ? 'on' : ''}" onclick="togglePdfSection(this,${i})"></button>`;
+        st.appendChild(row);
+      });
+
+      const fl = document.getElementById('pe-fieldLabels');
+      fl.innerHTML = '';
+      pdfLayout.fields.forEach((f, i) => {
+        const row = document.createElement('div');
+        row.className = 'pdf-field-row';
+        row.innerHTML = `<span style="color:#aaa;font-size:0.9rem;"><i class="fas fa-grip-vertical"></i></span>
+          <input type="text" value="${f.label}" onchange="updatePdfFieldLabel(${i},this.value)">`;
+        fl.appendChild(row);
+      });
+
+      updatePdfPreview();
+      document.getElementById('pdfEditorModal').style.display = 'flex';
+      ['pe-schoolName','pe-formTitle','pe-contact','pe-refNo','pe-openDate'].forEach(id => {
+        document.getElementById(id).oninput = updatePdfPreview;
+      });
+    }
+
+    function togglePdfSection(btn, idx) {
+      pdfLayout.sections[idx].visible = !pdfLayout.sections[idx].visible;
+      btn.classList.toggle('on', pdfLayout.sections[idx].visible);
+      updatePdfPreview();
+    }
+
+    function updatePdfFieldLabel(idx, val) { pdfLayout.fields[idx].label = val; }
+
+    function updatePdfPreview() {
+      document.getElementById('pe-prev-schoolName').textContent = document.getElementById('pe-schoolName').value;
+      document.getElementById('pe-prev-formTitle').textContent = document.getElementById('pe-formTitle').value;
+      document.getElementById('pe-prev-contact').textContent = document.getElementById('pe-contact').value;
+      const secDiv = document.getElementById('pe-prev-sections');
+      secDiv.innerHTML = '';
+      pdfLayout.sections.forEach(sec => {
+        if (!sec.visible) return;
+        const d = document.createElement('div');
+        d.style.cssText = 'margin-bottom:6px;padding:4px 0;border-bottom:1px solid #eee;';
+        d.innerHTML = `<strong style="color:#553c9a;font-size:0.75rem;">${sec.label}</strong>`;
+        secDiv.appendChild(d);
+      });
+      document.getElementById('pe-prev-footer').textContent = document.getElementById('pe-refNo').value + ' | ' + document.getElementById('pe-openDate').value;
+    }
+
+    function closePdfEditor() { document.getElementById('pdfEditorModal').style.display = 'none'; }
+
+    function applyPdfLayout() {
+      pdfLayout.schoolName = document.getElementById('pe-schoolName').value;
+      pdfLayout.formTitle  = document.getElementById('pe-formTitle').value;
+      pdfLayout.contact    = document.getElementById('pe-contact').value;
+      pdfLayout.govtText   = document.getElementById('pe-govtText').value;
+      pdfLayout.refNo      = document.getElementById('pe-refNo').value;
+      pdfLayout.openDate   = document.getElementById('pe-openDate').value;
+      pdfLayout.ahadiText  = document.getElementById('pe-ahadiText').value;
+      savePdfLayout();
+      applyLayoutToPdfPreview();
+      closePdfEditor();
+      showToast('✅ Mabadiliko ya PDF yamehifadhiwa!');
+    }
+
+    function applyLayoutToPdfPreview() {
+      const el = (id) => document.getElementById(id);
+      if (el('pdf-govtText')) el('pdf-govtText').textContent = pdfLayout.govtText;
+      if (el('pdf-schoolName')) el('pdf-schoolName').textContent = pdfLayout.schoolName;
+      if (el('pdf-formTitle')) el('pdf-formTitle').textContent = pdfLayout.formTitle;
+      if (el('pdf-contact')) el('pdf-contact').textContent = pdfLayout.contact;
+      if (el('pdf-refNo')) el('pdf-refNo').textContent = pdfLayout.refNo;
+      if (el('pdf-openDate')) el('pdf-openDate').textContent = pdfLayout.openDate;
+      pdfLayout.sections.forEach(sec => {
+        const secEl = el(sec.id);
+        if (secEl) secEl.style.display = sec.visible ? '' : 'none';
+      });
+      pdfLayout.fields.forEach(f => {
+        const valEl = el(f.id);
+        if (valEl) {
+          const labelEl = valEl.previousElementSibling;
+          if (labelEl && labelEl.classList.contains('pdf-label')) labelEl.textContent = f.label;
+        }
+      });
+    }
+
+    function resetPdfLayout() {
+      if (!confirm('Una uhakika unataka kurudisha mipangilio ya PDF kwenye hali ya awali?')) return;
+      localStorage.removeItem('pdfLayout_form5');
+      pdfLayout = loadPdfLayout();
+      openPdfEditor();
+      showToast('↩️ Mipangilio ya PDF imerudishwa.');
+    }
+
+    // Apply saved layout on load
+    (function() {
+      try {
+        const saved = localStorage.getItem('pdfLayout_form5');
+        if (saved) { pdfLayout = JSON.parse(saved); applyLayoutToPdfPreview(); }
+      } catch(e) {}
+    })();
+
+
+    // =============================================
+    //  REGISTRATION OPEN / CLOSE CONTROL – F.5
+    // =============================================
+    const REG_KEY = 'tbss_reg_form5';
+    let regState = { open: true, message: 'Usajili wa Kidato cha 5 umefungwa kwa sasa. Tafadhali wasiliana na ofisi ya shule.', deadline: '' };
+
+    async function loadRegState() {
+      try {
+        const r = await fetch(`${API_URL}/registration-status?form=form5`, { signal: AbortSignal.timeout(3000) });
+        if (r.ok) { const data = await r.json(); regState = data; localStorage.setItem(REG_KEY, JSON.stringify(regState)); applyRegState(); return; }
+      } catch(e) {}
+      try { const saved = localStorage.getItem(REG_KEY); if (saved) regState = JSON.parse(saved); } catch(e) {}
+      applyRegState();
+    }
+
+    function applyRegState() {
+      const banner = document.getElementById('regClosedBanner');
+      const submitBtn = document.getElementById('submitBtn');
+      const pill = document.getElementById('regStatusPill');
+      const pillText = document.getElementById('regStatusText');
+      const toggleBtn = document.getElementById('regToggleBtn');
+      const toggleBtnText = document.getElementById('regToggleBtnText');
+      if (regState.open) {
+        if (banner) banner.style.display = 'none';
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.style.opacity = '1'; }
+        if (pill) pill.style.background = '#2f855a';
+        if (pillText) pillText.textContent = 'Usajili: Umefunguliwa';
+        if (toggleBtn) toggleBtn.style.background = '#c53030';
+        if (toggleBtnText) toggleBtnText.textContent = 'Funga Usajili';
+      } else {
+        if (banner) banner.style.display = 'block';
+        const msgEl = document.getElementById('regClosedMsg');
+        if (msgEl) msgEl.textContent = regState.message || 'Usajili umefungwa.';
+        const deadlineEl = document.getElementById('regClosedDeadline');
+        if (deadlineEl && regState.deadline) {
+          deadlineEl.style.display = 'block';
+          deadlineEl.textContent = 'Tarehe ya mwisho: ' + new Date(regState.deadline).toLocaleDateString('sw-TZ');
+        } else if (deadlineEl) { deadlineEl.style.display = 'none'; }
+        if (submitBtn && !adminLoggedIn) { submitBtn.disabled = true; submitBtn.style.opacity = '0.5'; }
+        if (pill) pill.style.background = '#c53030';
+        if (pillText) pillText.textContent = 'Usajili: Umefungwa';
+        if (toggleBtn) toggleBtn.style.background = '#2f855a';
+        if (toggleBtnText) toggleBtnText.textContent = 'Fungua Usajili';
+      }
+    }
+
+    function openRegControl() {
+      const modal = document.getElementById('regControlModal');
+      modal.style.display = 'flex';
+      const statusDiv = document.getElementById('rcCurrentStatus');
+      const iconDiv = document.getElementById('rcStatusIcon');
+      const openBtn = document.getElementById('rcOpenBtn');
+      const closeBtn = document.getElementById('rcCloseBtn');
+      if (regState.open) {
+        statusDiv.innerHTML = '<i class="fas fa-check-circle"></i> Usajili Umefunguliwa';
+        statusDiv.style.color = '#2f855a';
+        iconDiv.style.background = '#c6f6d5'; iconDiv.style.color = '#2f855a';
+        iconDiv.innerHTML = '<i class="fas fa-door-open"></i>';
+        openBtn.style.display = 'none'; closeBtn.style.display = 'block';
+      } else {
+        statusDiv.innerHTML = '<i class="fas fa-times-circle"></i> Usajili Umefungwa';
+        statusDiv.style.color = '#c53030';
+        iconDiv.style.background = '#fed7d7'; iconDiv.style.color = '#c53030';
+        iconDiv.innerHTML = '<i class="fas fa-door-closed"></i>';
+        openBtn.style.display = 'block'; closeBtn.style.display = 'none';
+      }
+      const msgInput = document.getElementById('rcClosedMsg');
+      if (msgInput) msgInput.value = regState.message || '';
+      const dlInput = document.getElementById('rcDeadline');
+      if (dlInput) dlInput.value = regState.deadline || '';
+    }
+
+    function closeRegControl() { document.getElementById('regControlModal').style.display = 'none'; }
+
+    async function setRegistration(isOpen) {
+      const msgInput = document.getElementById('rcClosedMsg');
+      const dlInput = document.getElementById('rcDeadline');
+      regState.open = isOpen;
+      regState.message = (msgInput ? msgInput.value.trim() : '') || 'Usajili umefungwa.';
+      regState.deadline = dlInput ? dlInput.value : '';
+      localStorage.setItem(REG_KEY, JSON.stringify(regState));
+      applyRegState();
+      closeRegControl();
+      try {
+        const r = await fetch(`${API_URL}/registration-status`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ form: 'form5', ...regState })
+        });
+        showToast(r.ok ? (isOpen ? '\u{1F7E2} Usajili umefunguliwa!' : '\u{1F534} Usajili umefungwa!') : (isOpen ? '\u{1F7E2} Umefunguliwa (seva haikujibu).' : '\u{1F534} Umefungwa (seva haikujibu).'));
+      } catch(e) {
+        showToast(isOpen ? '\u{1F7E2} Umefunguliwa (offline).' : '\u{1F534} Umefungwa (offline).');
+      }
+    }
+
+    document.getElementById('regControlModal').addEventListener('click', function(e) { if (e.target === this) closeRegControl(); });
+    loadRegState();
+
+  </script>
+</body>
+</html>

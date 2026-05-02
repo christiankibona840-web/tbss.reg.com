@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- TBSS Visibility Check — paste in <head> of each public page -->
+     <link rel="icon" href="icon.png">
+<script>
+(function(){
+  try {
+    var vis = JSON.parse(localStorage.getItem('tbss_vis')||'{}');
+    var pageKey = ''; // set this per page: 'main','form','about','contact','instructions','closed'
+    if(vis.siteVis && vis.siteVis[pageKey]===false){
+      document.documentElement.style.display='none';
+      document.addEventListener('DOMContentLoaded',function(){
+        document.body.innerHTML='<div style="font-family:sans-serif;text-align:center;padding:80px;color:#666;"><h2>Page Unavailable</h2><p>'+( vis.closedMsg||'This page is currently unavailable.')+'</p></div>';
+        document.documentElement.style.display='';
+      });
+    }
+  } catch(e){}
+})();
+</script>
+  <meta charset="UTF-8">
+  <title>Contact Us - Tabora Boys</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --primary: #1a365d;
+      --secondary: #2c5282;
+      --accent: #d69e2e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+
+    .back-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      margin-top: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background: var(--secondary);
+      transform: translateY(-2px);
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .section {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 25px;
+    }
+
+    .contact-item {
+      margin-bottom: 25px;
+      padding: 20px;
+      background: #f7fafc;
+      border-radius: 12px;
+      border-left: 4px solid var(--accent);
+    }
+
+    .contact-item strong {
+      display: block;
+      color: var(--primary);
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .contact-item p {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(26, 54, 93, 0.1);
+    }
+
+    textarea.form-input {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(26, 54, 93, 0.4);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .success-message {
+      display: none;
+      background: #c6f6d5;
+      color: #276749;
+      border-radius: 10px;
+      padding: 15px 20px;
+      margin-top: 15px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .error-message {
+      display: none;
+      background: #fed7d7;
+      color: #9b2c2c;
+      border-radius: 10px;
+      padding: 15px 20px;
+      margin-top: 15px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .map-container {
+      margin-top: 30px;
+      border-radius: 15px;
+      overflow: hidden;
+      height: 300px;
+      background: #e2e8f0;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    @media (max-width: 768px) {
+      .content {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Contact Us</h1>
+      <p>Get in touch with Tabora Boys Secondary School</p>
+      <button class="back-btn" onclick="window.location.href='dashboard_enhanced.html'">
+        Back to Dashboard
+      </button>
+    </div>
+
+    <div class="content">
+      <div class="section">
+        <h2>Contact Information</h2>
+        
+        <div class="contact-item">
+          <strong>Address</strong>
+          <p>Tabora Boys Secondary School<br>
+          P.O. Box 374<br>
+          Kitete Ward, Tabora Municipal Council<br>
+          Tabora Region, Tanzania</p>
+        </div>
+
+        <div class="contact-item">
+          <strong>Phone Numbers</strong>
+          <p>Main Office: +255 26 123 4567<br>
+          Admissions: +255 754 123 456<br>
+          Head Teacher: +255 767 890 123</p>
+        </div>
+
+        <div class="contact-item">
+          <strong>Email Addresses</strong>
+          <p>General Inquiries: info@taboraboys.ac.tz<br>
+          Admissions: admissions@taboraboys.ac.tz<br>
+          Support: support@taboraboys.ac.tz</p>
+        </div>
+
+        <div class="contact-item">
+          <strong>Office Hours</strong>
+          <p>Monday - Friday: 8:00 AM - 4:00 PM<br>
+          Saturday: 9:00 AM - 1:00 PM<br>
+          Sunday: Closed</p>
+        </div>
+
+        <div class="map-container">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31862.056896646273!2d32.813!3d-5.020!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x185bcdcd0f!2sTabora!5e0!3m2!1sen!2stz!4v1700000000000"
+            allowfullscreen
+            loading="lazy">
+          </iframe>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Send Us a Message</h2>
+        <!-- 
+          FORMSPREE SETUP:
+          1. Go to https://formspree.io and create a free account.
+          2. Create a new form and set the destination email to your school email.
+          3. Replace "YOUR_FORM_ID" in the action URL below with your actual form ID.
+             Example: action="https://formspree.io/f/abcd1234"
+        -->
+        <form id="contactForm" action="https://formspree.io/f/xkoprrrv" method="POST">
+          <div class="form-group">
+            <label for="name">Your Name *</label>
+            <input type="text" id="name" name="name" class="form-input" placeholder="Enter your full name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" class="form-input" placeholder="your.email@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" class="form-input" placeholder="+255 xxx xxx xxx">
+          </div>
+
+          <div class="form-group">
+            <label for="subject">Subject *</label>
+            <input type="text" id="subject" name="subject" class="form-input" placeholder="What is this about?" required>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" class="form-input" placeholder="Write your message here..." required></textarea>
+          </div>
+
+          <!-- Formspree honeypot spam filter -->
+          <input type="text" name="_gotcha" style="display:none">
+
+          <button type="submit" class="submit-btn" id="submitBtn">Send Message</button>
+          <div class="success-message" id="successMsg">Thank you! Your message has been sent. We will respond within 24 hours.</div>
+          <div class="error-message" id="errorMsg">Something went wrong. Please try again or contact us directly by phone.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const successMsg = document.getElementById('successMsg');
+    const errorMsg = document.getElementById('errorMsg');
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+      successMsg.style.display = 'none';
+      errorMsg.style.display = 'none';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          successMsg.style.display = 'block';
+          form.reset();
+        } else {
+          errorMsg.style.display = 'block';
+        }
+      } catch (err) {
+        errorMsg.style.display = 'block';
+      }
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send Message';
+    });
+  </script>
+</body>
+</html>

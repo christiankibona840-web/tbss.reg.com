@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <link rel="icon" href="icon.png">
+<script>
+(function(){
+  try {
+    var vis = JSON.parse(localStorage.getItem('tbss_vis')||'{}');
+    var pageKey = ''; // set this per page: 'main','form','about','contact','instructions','closed'
+    if(vis.siteVis && vis.siteVis[pageKey]===false){
+      document.documentElement.style.display='none';
+      document.addEventListener('DOMContentLoaded',function(){
+        document.body.innerHTML='<div style="font-family:sans-serif;text-align:center;padding:80px;color:#666;"><h2>Page Unavailable</h2><p>'+( vis.closedMsg||'This page is currently unavailable.')+'</p></div>';
+        document.documentElement.style.display='';
+      });
+    }
+  } catch(e){}
+})();
+</script>
+  <meta charset="UTF-8">
+  <title>Dashboard - Tabora Boys</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    
+    :root {
+      --primary: #1a365d;
+      --secondary: #2c5282;
+      --accent: #d69e2e;
+      --light: #f7fafc;
+      --dark: #1a202c;
+      --success: #38a169;
+      --danger: #e53e3e;
+          --tb-primary: #1a365d;
+    --tb-secondary: #2c5282;
+    --tb-accent: #d69e2e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Background Slideshow */
+    .slideshow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    
+    .slideshow::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.85) 0%, rgba(118, 75, 162, 0.75) 100%);
+      z-index: 2;
+      animation: pulseOverlay 8s ease-in-out infinite;
+    }
+
+    @keyframes pulseOverlay {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.95; }
+    }
+
+    .slideshow img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      z-index: 1;
+    }
+    
+    .slideshow img.active {
+      opacity: 1;
+      animation: kenBurns 20s ease-out forwards;
+    }
+
+    @keyframes kenBurns {
+      0% { 
+        transform: scale(1) translate(0, 0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% { 
+        transform: scale(1.15) translate(-2%, -2%);
+        opacity: 0;
+      }
+    }
+
+    /* Animated Background Pattern */
+    .content-wrapper {
+      position: relative;
+      z-index: 3;
+    }
+
+    .content-wrapper::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+      animation: bgShift 20s ease-in-out infinite;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    @keyframes bgShift {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    /* Header */
+    header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      animation: slideDown 0.6s ease-out;
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--primary);
+      font-weight: 900;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .header-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.4s, height 0.4s;
+    }
+
+    .header-btn:hover::before {
+      width: 200px;
+      height: 200px;
+    }
+
+    .header-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(26, 54, 93, 0.3);
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+      color: white;
+      animation: fadeIn 1s ease-out 0.3s backwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 900;
+      margin-bottom: 15px;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      opacity: 0.95;
+      max-width: 600px;
+      margin: 0 auto;
+      min-height: 30px;
+    }
+
+    /* Typewriter effect */
+    .typewriter {
+      display: inline-block;
+      border-right: 3px solid rgba(255,255,255,0.9);
+      padding-right: 5px;
+      animation: blink 0.7s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% { border-color: rgba(255,255,255,0.9); }
+      51%, 100% { border-color: transparent; }
+    }
+
+    /* Dashboard Cards */
+    .dashboard {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 40px 30px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      animation: cardFadeIn 0.8s ease-out backwards;
+    }
+
+    .card:nth-child(1) { animation-delay: 0.4s; }
+    .card:nth-child(2) { animation-delay: 0.6s; }
+    .card:nth-child(3) { animation-delay: 0.8s; }
+
+    @keyframes cardFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--accent), var(--secondary));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 25px;
+      box-shadow: 0 10px 30px rgba(26, 54, 93, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .card-icon svg {
+      width: 40px;
+      height: 40px;
+      color: white;
+    }
+
+    .card:hover .card-icon {
+      transform: rotate(5deg) scale(1.1);
+      animation: iconBounce 0.6s ease;
+    }
+
+    @keyframes iconBounce {
+      0%, 100% { transform: rotate(5deg) scale(1.1); }
+      50% { transform: rotate(-5deg) scale(1.15); }
+    }
+
+    .card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--dark);
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .card p {
+      color: #666;
+      line-height: 1.7;
+      margin-bottom: 25px;
+      font-size: 0.95rem;
+    }
+
+    .card-btn {
+      width: 100%;
+      padding: 15px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .card-btn:hover {
+      background: var(--secondary);
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(26, 54, 93, 0.3);
+    }
+
+    /* School Logo Bottom Left */
+    .school-logo-container {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      z-index: 1000;
+      animation: floatShake 4s ease-in-out infinite, scaleIn 0.8s ease-out;
+    }
+
+    @keyframes floatShake {
+      0%, 100% { 
+        transform: translateY(0px) rotate(0deg);
+      }
+      25% { 
+        transform: translateY(-15px) rotate(-3deg);
+      }
+      50% { 
+        transform: translateY(-20px) rotate(0deg);
+      }
+      75% { 
+        transform: translateY(-15px) rotate(3deg);
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        transform: scale(0) rotate(-180deg);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
+    }
+
+    .school-logo-badge {
+      width: 100px;
+      height: 100px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2), 0 0 0 6px rgba(214, 158, 46, 0.3);
+      border: 4px solid var(--accent);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .school-logo-badge:hover {
+      transform: scale(1.1);
+    }
+
+    .school-logo-badge::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.5), transparent);
+      animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: rotate(0deg) translate(-50%, -50%); }
+      100% { transform: rotate(360deg) translate(-50%, -50%); }
+    }
+
+    .school-logo-badge img {
+      width: 70%;
+      height: 70%;
+      object-fit: contain;
+      position: relative;
+      z-index: 2;
+      animation: rotateSubtle 6s ease-in-out infinite;
+    }
+
+    @keyframes rotateSubtle {
+      0%, 100% { transform: rotate(-2deg); }
+      50% { transform: rotate(2deg); }
+    }
+
+    .school-logo-badge svg {
+      width: 50px;
+      height: 50px;
+      position: relative;
+      z-index: 2;
+      color: var(--primary);
+    }
+
+    /* AI Assistant Button */
+    .ai-assistant {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, var(--accent), #e5a721);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(214, 158, 46, 0.4);
+      transition: all 0.4s ease;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+
+    .ai-assistant svg {
+      width: 35px;
+      height: 35px;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 10px 30px rgba(214, 158, 46, 0.4);
+      }
+      50% {
+        box-shadow: 0 15px 40px rgba(214, 158, 46, 0.6);
+      }
+    }
+
+    .ai-assistant:hover {
+      transform: scale(1.15) rotate(10deg);
+    }
+
+    /* Footer */
+    :root {
+  --primary: #1a3a5c;
+  --accent: #c9a84c;
+}
+
+.footer-wrap {
+  background: rgba(255, 255, 255, 0.95);
+  border-top: 3px solid var(--accent);
+  padding: 48px 32px 28px;
+  backdrop-filter: blur(10px);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 32px;
+  max-width: 860px;
+  margin: 0 auto 32px;
+}
+
+.footer-brand .school-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 6px;
+}
+
+.footer-brand .motto {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.footer-brand .address {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.7;
+}
+
+.footer-section h5 {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 12px;
+}
+
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 10px;
+}
+
+.icon-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #f0f4f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contact-row span {
+  font-size: 13px;
+}
+
+.quick-links a {
+  display: block;
+  font-size: 13px;
+  color: #666;
+  text-decoration: none;
+  margin-bottom: 8px;
+}
+
+.quick-links a:hover { color: var(--primary); }
+
+.footer-divider {
+  max-width: 860px;
+  margin: 0 auto 20px;
+  border: none;
+  border-top: 1px solid #e2e8f0;
+}
+
+.footer-bottom {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.footer-bottom p, .footer-bottom .credit {
+  font-size: 12px;
+  color: #999;
+}
+
+.accent-bar {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.accent-bar span {
+  height: 3px;
+  border-radius: 2px;
+}
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+      }
+
+      header h1 {
+        font-size: 1.2rem;
+      }
+
+      .actions {
+        justify-content: center;
+      }
+
+      .dashboard {
+        grid-template-columns: 1fr;
+        padding: 30px 15px;
+      }
+
+      .hero {
+        padding: 40px 20px;
+      }
+
+      .ai-assistant {
+        width: 60px;
+        height: 60px;
+        bottom: 20px;
+        right: 20px;
+      }
+
+      .ai-assistant svg {
+        width: 30px;
+        height: 30px;
+      }
+
+      .school-logo-container {
+        bottom: 20px;
+        left: 20px;
+      }
+
+      .school-logo-badge {
+        width: 70px;
+        height: 70px;
+      }
+    }
+    .tb-section {
+    padding: 2rem 0 1rem;
+    font-family: var(--font-sans);
+  }
+  .tb-card {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    padding: 1.5rem 1.75rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .tb-icon-wrap {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: var(--tb-primary);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .tb-icon-wrap svg {
+    width: 28px;
+    height: 28px;
+    color: #fff;
+  }
+  .tb-text { flex: 1; }
+  .tb-text h3 {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin: 0 0 4px;
+  }
+  .tb-text p {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: 1.5;
+  }
+  .tb-dl-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--tb-primary);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    border: none;
+    border-radius: var(--border-radius-md);
+    padding: 10px 18px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.1s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .tb-dl-btn:hover { background: var(--tb-secondary); }
+  .tb-dl-btn:active { transform: scale(0.97); }
+  .tb-dl-btn svg { width: 16px; height: 16px; }
+  .tb-accent-bar {
+    height: 3px;
+    background: linear-gradient(90deg, var(--tb-accent) 0%, var(--tb-secondary) 100%);
+    border-radius: 2px;
+    margin-bottom: 1rem;
+  }
+  .tb-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--color-text-secondary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: 20px;
+    padding: 3px 10px;
+    margin-top: 6px;
+  }
+  .tb-badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #38a169;
+    flex-shrink: 0;
+  }
+  </style>
+</head>
+<body>
+  <!-- Background Slideshow -->
+  <div class="slideshow" id="slideshow"></div>
+
+  <!-- Content Wrapper -->
+  <div class="content-wrapper">
+    <!-- Header -->
+    <header>
+      <h1 id="title">Tabora Boys - Smart Registration Portal</h1>
+      <div class="actions">
+        <button class="header-btn" onclick="toggleLanguage()" id="langBtn">Swahili</button>
+        <button class="header-btn" onclick="contact()" id="contactBtn">Contact</button>
+        <button class="header-btn" onclick="about()" id="aboutBtn">About</button>
+        <button class="header-btn" onclick="help()" id="helpBtn">Help</button>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <h2 id="welcome">Welcome to Student Registration Portal</h2>
+      <p id="subtitle"><span class="typewriter" id="typewriter"></span></p>
+    </section>
+
+    <!-- Dashboard Cards -->
+    <main class="dashboard">
+      <div class="card">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="8.5" cy="7" r="4"></circle>
+            <line x1="20" y1="8" x2="20" y2="14"></line>
+            <line x1="23" y1="11" x2="17" y2="11"></line>
+          </svg>
+        </div>
+        <h3 id="registerTitle">Register Student</h3>
+        <p id="registerDesc">Add new student details quickly and easily with our streamlined registration form.</p>
+        <button class="card-btn" onclick="register()" id="registerBtn">Start Registration</button>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"></line>
+            <line x1="12" y1="20" x2="12" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="14"></line>
+          </svg>
+        </div>
+        <h3 id="recordsTitle">View Records</h3>
+        <p id="recordsDesc">Access and manage all student registration data in one centralized location.</p>
+        <button class="card-btn" onclick="records()" id="recordsBtn">Open Records</button>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+        </div>
+        <h3 id="helpTitle">Help & Support</h3>
+        <p id="helpDesc">Need assistance? Find guidance, FAQs, and support for any questions.</p>
+        <button class="card-btn" onclick="help()" id="helpBtn">Get Help</button>
+      </div>
+    </main>
+
+
+    <div class="tb-section">
+  <div class="tb-accent-bar"></div>
+
+  <div class="tb-card">
+    <div class="tb-icon-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="12" y1="18" x2="12" y2="12"/>
+        <polyline points="9 15 12 18 15 15"/>
+      </svg>
+    </div>
+
+    <div class="tb-text">
+      <h3>Maelekezo ya Kujiunga na Shule</h3>
+      <p>Vigezo,sare, hatua za maombi, na mambo muhimu – Mwaka 2026</p>
+      <div class="tb-badge">
+        <span class="tb-badge-dot"></span>
+        PDF · Shule ya Sekondari Tabora Wavulana
+      </div>
+    </div>
+
+    <a class="tb-dl-btn" href="TABORA_BOYS_MAELEZO.pdf" download="Maelekezo_Kujiunga_Tabora_Boys.pdf">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Pakua PDF
+    </a>
+  </div>
+
+  <p style="font-size: 12px; color: var(--color-text-secondary); margin: 0; text-align: center;">
+    Bonyeza "Pakua PDF" kupakua maelekezo kamili ya kujiunga na shule
+  </p>
+
+
+
+    <!-- Footer -->
+<!-- Add inside <head> -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+<footer class="footer-wrap">
+  <div class="footer-grid">
+
+    <div class="footer-brand">
+      <div class="accent-bar">
+        <span style="width:32px;background:var(--primary);"></span>
+        <span style="width:16px;background:var(--accent);"></span>
+        <span style="width:8px;background:#c0392b;"></span>
+      </div>
+      <div class="school-name">Tabora Boys Secondary School</div>
+      <div class="motto">Knowledge &bull; Leadership &bull; Excellence</div>
+      <div class="address">Kitete Ward, Tabora Municipal Council<br>Tabora Region, Tanzania</div>
+    </div>
+
+    <div class="footer-section">
+      <h5>Contact Us</h5>
+      <div class="contact-row">
+        <div class="icon-circle">
+          <!-- Email SVG icon -->
+          <svg viewBox="0 0 24 24" width="13" height="13" stroke="var(--primary)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </div>
+        <span>info@taboraboys.ac.tz</span>
+      </div>
+      <div class="contact-row">
+        <div class="icon-circle">
+          <!-- Phone SVG icon -->
+          <svg viewBox="0 0 24 24" width="13" height="13" stroke="var(--primary)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.58 3.44 2 2 0 0 1 3.54 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.27-.9a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </div>
+        <span>+255 26 123 4567</span>
+      </div>
+      <div class="contact-row">
+        <div class="icon-circle">
+          <!-- Location SVG icon -->
+          <svg viewBox="0 0 24 24" width="13" height="13" stroke="var(--primary)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <span>Tabora, Tanzania</span>
+      </div>
+    </div>
+
+    <div class="footer-section">
+      <h5>Quick Links</h5>
+      <div class="quick-links">
+        <a href="About our blog.html">About the School</a>
+        <a href="Tabora boys joining instructions.html">Admissions</a>
+        <a href="https://taboraboys.org/academics/curriculum/">Academic Programs</a>
+        <a href="https://taboraboys.org/news/">News &amp; Events</a>
+        <a href="https://taboraboys.org/">Student Portal</a>
+      </div>
+    </div>
+
+  </div>
+
+  <hr class="footer-divider">
+
+  <div class="footer-bottom">
+    <p>&copy; 2024 Tabora Boys Secondary School. All rights reserved.</p>
+    <p class="credit">Digital Portal by Christian Kibona &amp; Johnson Fungilwa</p>
+  </div>
+</footer>
+
+  
+  <!-- School Logo Bottom Left -->
+  <div class="school-logo-container">
+    <div class="school-logo-badge" id="schoolLogoBadge" title="Tabora Boys Secondary School">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+        <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+      </svg>
+    </div>
+  </div>
+
+  <!-- AI Assistant Button -->
+  <div class="ai-assistant" onclick="Aihelp()" title="AI Assistant">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+      <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
+      <circle cx="12" cy="16" r="1"></circle>
+    </svg>
+  </div>
+
+
+
+  <!-- JavaScript -->
+  <script>
+    // ===== SCHOOL LOGO CONFIGURATION =====
+    const SCHOOL_LOGO_PATH = 'logo.png'; // Change this to your logo filename
+    
+    // Try to load the school logo
+    const schoolLogoBadge = document.getElementById('schoolLogoBadge');
+    const logoImg = new Image();
+    logoImg.src = SCHOOL_LOGO_PATH;
+    logoImg.alt = 'School Logo';
+    
+    logoImg.onload = function() {
+      schoolLogoBadge.innerHTML = '';
+      schoolLogoBadge.appendChild(logoImg);
+    };
+
+    // ===== BACKGROUND SLIDESHOW =====
+    const backgroundImages = [
+      "1.jpg",
+      "m.jpg",
+      "n.jpg",
+      "get.jpg",
+      "b.jpg",
+      "1.jpg"
+    ];
+
+    const slideDuration = 6; // seconds
+    let currentSlideIndex = 0;
+    const slideshowContainer = document.getElementById('slideshow');
+    
+    // Create image elements
+    backgroundImages.forEach((imageUrl, index) => {
+      const img = document.createElement('img');
+      img.src = imageUrl;
+      img.alt = `Background ${index + 1}`;
+      if (index === 0) {
+        img.classList.add('active');
+      }
+      slideshowContainer.appendChild(img);
+    });
+    
+    const slides = slideshowContainer.querySelectorAll('img');
+    
+    // Show next slide
+    function showNextSlide() {
+      if (slides.length === 0) return;
+      slides[currentSlideIndex].classList.remove('active');
+      currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+      slides[currentSlideIndex].classList.add('active');
+    }
+    
+    // Start slideshow immediately
+    if (slides.length > 1) {
+      setInterval(showNextSlide, slideDuration * 1000);
+    }
+
+    // ===== TYPEWRITER EFFECT =====
+    const messages = {
+      en: {
+        title: "Tabora Boys - Smart Registration Portal",
+        welcome: "Welcome to Student Registration Portal",
+        subtitle: "Manage student records efficiently with our modern digital system",
+        registerTitle: "Register Student",
+        registerDesc: "Add new student details quickly and easily with our streamlined registration form.",
+        registerBtn: "Start Registration",
+        recordsTitle: "View Records",
+        recordsDesc: "Access and manage all student registration data in one centralized location.",
+        recordsBtn: "Open Records",
+        helpTitle: "Help & Support",
+        helpDesc: "Need assistance? Find guidance, FAQs, and support for any questions.",
+        helpBtn: "Get Help",
+        contactBtn: "Contact",
+        aboutBtn: "About",
+        logoutBtn: "Logout",
+        langBtn: "Swahili"
+      },
+      sw: {
+        title: "Tabora Boys - Mfumo wa Usajili Mahiri",
+        welcome: "Karibu kwenye Mfumo wa Usajili wa Wanafunzi",
+        subtitle: "Simamia rekodi za wanafunzi kwa ufanisi kupitia mfumo wetu wa kisasa",
+        registerTitle: "Sajili Mwanafunzi",
+        registerDesc: "Ongeza taarifa za mwanafunzi mpya kwa urahisi na haraka kupitia fomu yetu rahisi.",
+        registerBtn: "Anza Usajili",
+        recordsTitle: "Tazama Rekodi",
+        recordsDesc: "Fikia na kusimamia data zote za usajili wa wanafunzi mahali pamoja.",
+        recordsBtn: "Fungua Rekodi",
+        helpTitle: "Msaada na Usaidizi",
+        helpDesc: "Unahitaji msaada? Pata mwongozo, maswali yanayoulizwa mara kwa mara na usaidizi.",
+        helpBtn: "Pata Msaada",
+        contactBtn: "Mawasiliano",
+        aboutBtn: "Kuhusu",
+        logoutBtn: "Toka",
+        langBtn: "English"
+      }
+    };
+
+    let currentLang = "en";
+    let typewriterTimeout;
+    
+    function typeWriter(text, element, speed = 50) {
+      let i = 0;
+      element.textContent = '';
+      
+      function type() {
+        if (i < text.length) {
+          element.textContent += text.charAt(i);
+          i++;
+          typewriterTimeout = setTimeout(type, speed);
+        } else {
+          setTimeout(() => {
+            element.classList.remove('typewriter');
+          }, 1000);
+        }
+      }
+      
+      element.classList.add('typewriter');
+      type();
+    }
+
+    // Start typewriter on page load
+    window.addEventListener('load', () => {
+      const typewriterElement = document.getElementById('typewriter');
+      typeWriter(messages[currentLang].subtitle, typewriterElement);
+    });
+
+    function toggleLanguage() {
+      currentLang = currentLang === "en" ? "sw" : "en";
+      applyLanguage();
+    }
+
+    function applyLanguage() {
+      const lang = messages[currentLang];
+      
+      if (typewriterTimeout) {
+        clearTimeout(typewriterTimeout);
+      }
+      
+      document.getElementById("title").innerText = lang.title;
+      document.getElementById("welcome").innerText = lang.welcome;
+      
+      // Restart typewriter for subtitle
+      const typewriterElement = document.getElementById('typewriter');
+      typeWriter(lang.subtitle, typewriterElement, 40);
+      
+      document.getElementById("registerTitle").innerText = lang.registerTitle;
+      document.getElementById("registerDesc").innerText = lang.registerDesc;
+      document.getElementById("registerBtn").innerText = lang.registerBtn;
+      document.getElementById("recordsTitle").innerText = lang.recordsTitle;
+      document.getElementById("recordsDesc").innerText = lang.recordsDesc;
+      document.getElementById("recordsBtn").innerText = lang.recordsBtn;
+      document.getElementById("helpTitle").innerText = lang.helpTitle;
+      document.getElementById("helpDesc").innerText = lang.helpDesc;
+      document.getElementById("helpBtn").innerText = lang.helpBtn;
+      document.getElementById("contactBtn").innerText = lang.contactBtn;
+      document.getElementById("aboutBtn").innerText = lang.aboutBtn;
+      document.getElementById("langBtn").innerText = lang.langBtn;
+    }
+
+    // Navigation functions
+    function register() {
+      window.location.href = "Tabora_boys_joining_instructions.html";
+    }
+
+    function records() {
+      window.location.href = "records_tab.html";
+    }
+
+    function help() {
+      window.location.href = "help-support.html";
+    }
+
+    function contact() {
+      window.location.href = "contact.html";
+    }
+
+    function about() {
+      window.location.href = "About our blog.html";
+    }
+
+    function toggleHelp() {
+      window.location.href = "help.html";
+    }
+
+    function logout() {
+      if (confirm("Are you sure you want to logout?")) {
+        window.location.href = "index_enhanced.html";
+      }
+    }
+     
+    function Aihelp() {
+      window.location.href = "admin.html";
+    }
+
+    // Initialize language settings
+    applyLanguage();
+  </script>
+</body>
+</html>

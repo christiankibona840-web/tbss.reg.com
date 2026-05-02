@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- TBSS Visibility Check — paste in <head> of each public page -->
+     <link rel="icon" href="icon.png">
+  <script>
+  (function(){
+    try {
+      var vis = JSON.parse(localStorage.getItem('tbss_vis')||'{}');
+      var pageKey = 'help';
+      if(vis.siteVis && vis.siteVis[pageKey]===false){
+        document.documentElement.style.display='none';
+        document.addEventListener('DOMContentLoaded',function(){
+          document.body.innerHTML='<div style="font-family:sans-serif;text-align:center;padding:80px;color:#666;"><h2>Page Unavailable</h2><p>'+(vis.closedMsg||'This page is currently unavailable.')+'</p></div>';
+          document.documentElement.style.display='';
+        });
+      }
+    } catch(e){}
+  })();
+  </script>
+  <meta charset="UTF-8">
+  <title>Help & Support - Tabora Boys Registration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --primary: #1a365d;
+      --secondary: #2c5282;
+      --accent: #d69e2e;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    /* ── HEADER ── */
+    .header {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    }
+
+    .header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .header p { color: #666; font-size: 1rem; }
+
+    .back-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      margin-top: 20px;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+    }
+
+    .back-btn:hover { background: var(--secondary); transform: translateY(-2px); }
+
+    /* ── SEARCH BAR ── */
+    .search-wrap {
+      background: white;
+      border-radius: 20px;
+      padding: 28px 40px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    }
+
+    .search-inner {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 14px 20px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      transition: border-color 0.3s;
+    }
+
+    .search-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(26,54,93,0.08); }
+
+    .search-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+
+    .search-btn:hover { background: var(--secondary); }
+
+    .no-results {
+      display: none;
+      text-align: center;
+      color: #999;
+      font-size: 0.95rem;
+      margin-top: 10px;
+    }
+
+    /* ── CONTENT GRID ── */
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .section {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    }
+
+    .section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 25px;
+    }
+
+    /* ── CATEGORY TABS ── */
+    .category-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .cat-btn {
+      padding: 7px 16px;
+      border-radius: 20px;
+      border: 2px solid #e2e8f0;
+      background: white;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: #555;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.2s;
+    }
+
+    .cat-btn:hover, .cat-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+
+    /* ── FAQ ACCORDION ── */
+    .faq-list { display: flex; flex-direction: column; gap: 12px; }
+
+    .faq-item {
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .faq-item.hidden { display: none; }
+
+    .faq-item:hover { border-color: #cbd5e0; }
+
+    .faq-item.open { border-color: var(--accent); }
+
+    .faq-question {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 20px;
+      background: #f7fafc;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--primary);
+      gap: 12px;
+      transition: background 0.2s;
+    }
+
+    .faq-item.open .faq-question { background: #fffbf0; }
+
+    .faq-question:hover { background: #edf2f7; }
+
+    .faq-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      transition: transform 0.3s, background 0.2s;
+      line-height: 1;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+      background: var(--accent);
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 20px;
+      overflow: hidden;
+    }
+
+    .faq-answer-inner {
+      padding: 16px 0 20px;
+      color: #555;
+      line-height: 1.7;
+      font-size: 0.93rem;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .faq-answer-inner ul {
+      margin: 10px 0 0 18px;
+    }
+
+    .faq-answer-inner ul li { margin-bottom: 5px; }
+
+    .faq-item.open .faq-answer { display: block; }
+
+    .faq-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background: #ebf8ff;
+      color: #2b6cb0;
+      margin-left: 4px;
+      white-space: nowrap;
+    }
+
+    .faq-badge.important { background: #fff5f5; color: #c53030; }
+    .faq-badge.new { background: #f0fff4; color: #276749; }
+
+    /* ── CONTACT FORM ── */
+    .form-group { margin-bottom: 20px; }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--primary);
+      font-size: 0.95rem;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(26,54,93,0.1);
+    }
+
+    select.form-input { cursor: pointer; background: white; }
+
+    textarea.form-input { resize: vertical; min-height: 120px; }
+
+    .submit-btn {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(26,54,93,0.4); }
+    .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+    .success-message {
+      display: none;
+      background: #c6f6d5;
+      color: #276749;
+      border-radius: 10px;
+      padding: 15px 20px;
+      margin-top: 15px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .error-message {
+      display: none;
+      background: #fed7d7;
+      color: #9b2c2c;
+      border-radius: 10px;
+      padding: 15px 20px;
+      margin-top: 15px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    /* ── QUICK LINKS CARD ── */
+    .quick-links-card {
+      background: white;
+      border-radius: 20px;
+      padding: 32px 40px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+      margin-top: 30px;
+    }
+
+    .quick-links-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+    }
+
+    .quick-link-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 18px;
+      background: #f7fafc;
+      border-radius: 12px;
+      border-left: 4px solid var(--accent);
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+
+    .quick-link-item:hover { background: #edf2f7; transform: translateX(4px); }
+
+    .quick-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .quick-icon svg { width: 18px; height: 18px; stroke: white; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .quick-link-item span {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .content { grid-template-columns: 1fr; }
+      .header h1 { font-size: 2rem; }
+      .section { padding: 28px 22px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Header -->
+    <div class="header">
+      <h1>Help &amp; Support</h1>
+      <p>Registration assistance for Tabora Boys Secondary School</p>
+      <button class="back-btn" onclick="window.location.href='dashboard_enhanced.html'">Back to Dashboard</button>
+    </div>
+
+    <!-- Search -->
+    <div class="search-wrap">
+      <div class="search-inner">
+        <input type="text" class="search-input" id="faqSearch" placeholder="Search for answers... e.g. &quot;required documents&quot;" oninput="filterFAQ()">
+        <button class="search-btn" onclick="filterFAQ()">Search</button>
+      </div>
+      <p class="no-results" id="noResults">No results found. Try different keywords or submit a support ticket below.</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+
+      <!-- LEFT: FAQ Accordion -->
+      <div class="section">
+        <h2>Frequently Asked Questions</h2>
+
+        <div class="category-tabs">
+          <button class="cat-btn active" onclick="filterCategory('all', this)">All</button>
+          <button class="cat-btn" onclick="filterCategory('registration', this)">Registration</button>
+          <button class="cat-btn" onclick="filterCategory('documents', this)">Documents</button>
+          <button class="cat-btn" onclick="filterCategory('fees', this)">Fees</button>
+          <button class="cat-btn" onclick="filterCategory('portal', this)">Portal</button>
+        </div>
+
+        <div class="faq-list" id="faqList">
+
+          <!-- Registration -->
+          <div class="faq-item" data-category="registration" data-keywords="registration apply how form deadline when">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+              <span>How do I apply for registration at Tabora Boys? <span class="faq-badge">Registration</span></span>
+              <div class="faq-icon">+</div>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                To register at Tabora Boys Secondary School, follow these steps:
+                <ul>
+                  <li>Download or collect the registration form from the school office or this portal.</li>
+                  <li>Complete the form with accurate personal and academic details.</li>
+                  <li>Attach all required documents (see the Documents section).</li>
+                  <li>Submit the completed form at the Admissions Office or upload via the portal.</li>
+                  <li>Pay the registration fee and retain your receipt.</li>
+                </ul>
+                Registration is open from <strong>January to March</strong> each year for the following academic year.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" data-category="registration" data-keywords="deadline registration close when last date">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+              <span>What is the registration deadline? <span class="faq-badge important">Important</span></span>
+              <div class="faq-icon">+</div>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                The registration deadline for the upcoming academic year is typically <strong>31st March</strong>. Late applications may be considered subject to availability of places. We strongly recommend submitting early to secure your placement. Contact the Admissions Office at <strong>admissions@taboraboys.ac.tz</strong> for specific dates each year.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" data-category="registration" data-keywords="eligibility qualify form one who can apply requirements">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+              <span>Who is eligible to register? <span class="faq-badge">Registration</span></span>
+              <div class="faq-icon">+</div>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Applicants must meet the following criteria:
+                <ul>
+                  <li>Have sat and passed the Primary School Leaving Examination (PSLE) or equivalent.</li>
+                  <li>Be of Tanzanian nationality or hold a valid residence permit.</li>
+                  <li>Meet the minimum grade requirement set by NECTA for admission to government secondary schools.</li>
+                  <li>Be in the correct age range for Form One entry (typically 13–16 years).</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Documents -->
+          <div class="faq-item" data-category="documents" data-keywords="documents required list what bring certificate birth">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+              <span>What documents are required for registration? <span class="faq-badge">Documents</span></span>
+              <div class="faq-icon">+</div>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Please bring originals and certified copies of the following:
+                <ul>
+                  <li>PSLE/NECTA results slip (original + 2 copies)</li>
+                  <li>Birth certificate or baptism card</li>
+                  <li>National identification document (parent/guardian)</li>
+                  <li>2 recent passport-size photographs</li>
+                  <li>Transfer letter (if transferring from another school)</li>
+                  <li>Medical fitness certificate (from a registered medical officer)</li>
+                  <li>Completed registration form</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" data-category="documents" data-keywords="missing documents incomplete lost certificate what if">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+              <span>What if I am missing some documents?</span>
+              <div class="faq-icon">+</div>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                If you are missing documents due to extenuating circumstances, visit the Admissions Office in person with what you have. The admissions team can grant a <strong>conditional registration</strong> for up to 14 days while you gather the remaining documents. Missing documents after 14 days may result in cancellation of registration. Contact us at <strong>admissions@taboraboys.ac.tz</strong> to discuss your situation.
+              </div>
+            </div>
+          </div>
+
+          <!-- Fees -->
+          <div class="faq-item" data-category="fees" data-keywords="fees cost how much school charges pay amount">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+              <span>What are the school fees and how do I pay? <span class="faq-badge">Fees</span></span>
+              <div class="faq-icon">+</div>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                School fees are set by the government and are collected each term. The current structure is:
+                <ul>
+                  <li><strong>Registration fee:</strong> TSh 20,000 (once per year)</li>
+                  <li><strong>Tuition (per term):</strong> As per government guidelines</li>
+                  <li><strong>School uniform &amp; books:</strong> Payable at registration</li>
+                </ul>
+                Payments are made at the school's designated bank account (details provided at the admissions office) or via the school portal. Always collect and retain your official receipt. For fee waivers or financial assistance, speak with the Head Teacher's office.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" data-category="fees" data-keywords="fee structure late payment deadline when due">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+              <span>When are fees due each term?</span>
+              <div class="faq-icon">+</div>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Fees are due on or before the first day of each term. Late payment may affect a student's ability to sit exams or receive reports. Parents are encouraged to pay at least one week before the term starts to avoid administrative delays. For approved payment plans, contact the Bursar's Office directly.
+              </div>
+            </div>
+          </div>
+
+          <!-- Results -->
+          <!-- Portal -->
+          <div class="faq-item" data-category="portal" data-keywords="portal login password forgot reset account access">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+              <span>I forgot my portal password — how do I reset it? <span class="faq-badge">Portal</span></span>
+              <div class="faq-icon">+</div>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                To reset your portal password:
+                <ul>
+                  <li>Click <strong>"Forgot Password"</strong> on the portal login page.</li>
+                  <li>Enter your registered email address or student ID.</li>
+                  <li>Check your email for a password reset link (valid for 24 hours).</li>
+                  <li>If you do not receive an email within 10 minutes, check your spam folder.</li>
+                </ul>
+                If the problem persists, contact us at <strong>support@taboraboys.ac.tz</strong> with your student registration number.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" data-category="portal" data-keywords="portal not working error browser technical problem">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+              <span>The portal is not working — what should I do?</span>
+              <div class="faq-icon">+</div>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                If you experience technical issues with the portal, try the following:
+                <ul>
+                  <li>Clear your browser cache and cookies, then reload.</li>
+                  <li>Try a different browser (Chrome or Firefox recommended).</li>
+                  <li>Ensure you have a stable internet connection.</li>
+                  <li>Disable any browser extensions that may interfere.</li>
+                </ul>
+                If the problem continues, submit a support ticket below and include a screenshot if possible. Our technical team will respond within 24 hours.
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /faq-list -->
+      </div><!-- /section -->
+
+      <!-- RIGHT: Support Ticket Form -->
+      <div class="section">
+        <h2>Submit a Support Ticket</h2>
+
+        <!--
+          FORMSPREE SETUP:
+          Replace "YOUR_FORM_ID" with your actual Formspree form ID.
+          Go to https://formspree.io, create a form, and copy the ID.
+          Example: action="https://formspree.io/f/abcd1234"
+        -->
+        <form id="supportForm" action="https://formspree.io/f/xkokkeja" method="POST">
+
+          <div class="form-group">
+            <label for="name">Full Name *</label>
+            <input type="text" id="name" name="name" class="form-input" placeholder="Your full name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" class="form-input" placeholder="your.email@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" class="form-input" placeholder="+255 xxx xxx xxx">
+          </div>
+
+          <div class="form-group">
+            <label for="category">Issue Category *</label>
+            <select id="category" name="category" class="form-input" required onchange="prefillSubject(this)">
+              <option value="" disabled selected>Select the type of issue</option>
+              <option value="New Student Registration">New Student Registration</option>
+              <option value="Form One Admission">Form One Admission</option>
+              <option value="Transfer Admission">Transfer Admission</option>
+              <option value="Required Documents">Required Documents</option>
+              <option value="Registration Deadline">Registration Deadline</option>
+              <option value="School Fees & Payments">School Fees &amp; Payments</option>
+              <option value="Portal Login / Account Issue">Portal Login / Account Issue</option>
+              <option value="Registration Form Issue">Registration Form Issue</option>
+              <option value="Other Registration Query">Other Registration Query</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="subject">Subject *</label>
+            <input type="text" id="subject" name="subject" class="form-input" placeholder="Brief description of your issue" required>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Describe Your Issue *</label>
+            <textarea id="message" name="message" class="form-input" placeholder="Please provide as much detail as possible so we can help you quickly..." required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="studentId">Student Registration Number (if applicable)</label>
+            <input type="text" id="studentId" name="student_id" class="form-input" placeholder="e.g. TBSS/2024/001">
+          </div>
+
+          <!-- Formspree honeypot -->
+          <input type="text" name="_gotcha" style="display:none">
+          <!-- Tag all tickets for easy filtering in Formspree -->
+          <input type="hidden" name="_subject" value="[Registration Support] Tabora Boys">
+
+          <button type="submit" class="submit-btn" id="submitBtn">Submit Support Ticket</button>
+          <div class="success-message" id="successMsg">
+            Your ticket has been submitted! Our support team will respond within 24 hours. Check your email for a confirmation.
+          </div>
+          <div class="error-message" id="errorMsg">
+            Something went wrong. Please try again or contact us directly at support@taboraboys.ac.tz
+          </div>
+        </form>
+      </div>
+
+    </div><!-- /content grid -->
+
+    <!-- Quick Links -->
+    <div class="quick-links-card">
+      <h2>Quick Links</h2>
+      <div class="quick-grid">
+
+        <a class="quick-link-item" href="contact.html">
+          <div class="quick-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <span>Contact Us</span>
+        </a>
+
+        <a class="quick-link-item" href="dashboard_enhanced.html">
+          <div class="quick-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </div>
+          <span>Dashboard</span>
+        </a>
+
+        <a class="quick-link-item" href="#">
+          <div class="quick-icon">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <span>Registration Form</span>
+        </a>
+
+        <a class="quick-link-item" href="#">
+          <div class="quick-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <span>Admission Requirements</span>
+        </a>
+
+        <a class="quick-link-item" href="#">
+          <div class="quick-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.58 3.44 2 2 0 0 1 3.54 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.27-.9a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <span>Call Admissions Office</span>
+        </a>
+
+      </div>
+    </div>
+
+  </div><!-- /container -->
+
+  <script>
+    /* ── FAQ Toggle ── */
+    function toggleFAQ(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    /* ── Category Filter ── */
+    function filterCategory(cat, btn) {
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('faqSearch').value = '';
+      const items = document.querySelectorAll('.faq-item');
+      let visible = 0;
+      items.forEach(item => {
+        const match = cat === 'all' || item.dataset.category === cat;
+        item.classList.toggle('hidden', !match);
+        if (match) visible++;
+      });
+      document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
+    }
+
+    /* ── Search Filter ── */
+    function filterFAQ() {
+      const query = document.getElementById('faqSearch').value.toLowerCase().trim();
+      document.querySelectorAll('.cat-btn').forEach((b, i) => {
+        b.classList.toggle('active', i === 0);
+      });
+      const items = document.querySelectorAll('.faq-item');
+      let visible = 0;
+      items.forEach(item => {
+        const text = (item.dataset.keywords || '') + ' ' + item.querySelector('.faq-question').textContent.toLowerCase();
+        const match = !query || text.includes(query);
+        item.classList.toggle('hidden', !match);
+        if (match) visible++;
+      });
+      document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
+    }
+
+    /* ── Prefill subject on category select ── */
+    function prefillSubject(sel) {
+      const subjectInput = document.getElementById('subject');
+      if (!subjectInput.value) {
+        subjectInput.value = 'Inquiry about: ' + sel.value;
+      }
+    }
+
+    /* ── Form Submission via Formspree ── */
+    const form = document.getElementById('supportForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const successMsg = document.getElementById('successMsg');
+    const errorMsg = document.getElementById('errorMsg');
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+      successMsg.style.display = 'none';
+      errorMsg.style.display = 'none';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          successMsg.style.display = 'block';
+          form.reset();
+          window.scrollTo({ top: form.offsetTop - 20, behavior: 'smooth' });
+        } else {
+          errorMsg.style.display = 'block';
+        }
+      } catch (err) {
+        errorMsg.style.display = 'block';
+      }
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit Support Ticket';
+    });
+  </script>
+</body>
+</html>

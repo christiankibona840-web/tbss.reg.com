@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- TBSS Visibility Check — paste in <head> of each public page -->
+<script>
+(function(){
+  try {
+    var vis = JSON.parse(localStorage.getItem('tbss_vis')||'{}');
+    var pageKey = ''; // set this per page: 'main','form','about','contact','instructions','closed'
+    if(vis.siteVis && vis.siteVis[pageKey]===false){
+      document.documentElement.style.display='none';
+      document.addEventListener('DOMContentLoaded',function(){
+        document.body.innerHTML='<div style="font-family:sans-serif;text-align:center;padding:80px;color:#666;"><h2>Page Unavailable</h2><p>'+( vis.closedMsg||'This page is currently unavailable.')+'</p></div>';
+        document.documentElement.style.display='';
+      });
+    }
+  } catch(e){}
+})();
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabora Boys Secondary School - Complete Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f8fffe 0%, #e8f5f0 100%);
+        }
+
+        .team-section {
+      margin-top: 30px;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .team-member {
+      background: #f7fafc;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+    }
+
+    .team-avatar {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, var(--accent), #e5a721);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      margin: 0 auto 20px;
+    }
+
+    .team-member h3 {
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .team-member p {
+      color: #666;
+      font-size: 0.95rem;
+    }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .school-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .school-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .established {
+            background: rgba(212, 175, 55, 0.2);
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+        }
+
+        .navigation {
+            background: white;
+            padding: 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-tabs {
+            display: flex;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .nav-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-tab {
+            background: none;
+            border: none;
+            padding: 20px 30px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            min-width: fit-content;
+        }
+
+        .nav-tab:hover, .nav-tab.active {
+            color: #1a5f3f;
+            border-bottom-color: #d4af37;
+            background: rgba(26, 95, 63, 0.05);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px 0;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .info-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border-left: 5px solid #d4af37;
+            transition: transform 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-card h3 {
+            color: #1a5f3f;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .info-card p, .info-card ul {
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .info-card ul {
+            padding-left: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #1a5f3f 0%, #2d8659 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(26, 95, 63, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: block;
+            color: #d4af37;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        .performance-chart {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin: 30px 0;
+        }
+
+        .ranking-badge {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            color: #1a5f3f;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 15px 25px;
+            border-radius: 50px;
+            display: inline-block;
+            margin: 15px 0;
+            box-shadow: 0 3px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .challenge-item, .strength-item {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid #e74c3c;
+        }
+
+        .strength-item {
+            border-left-color: #27ae60;
+        }
+
+        .alumni-highlight {
+            background: linear-gradient(135deg, rgba(26, 95, 63, 0.1) 0%, rgba(212, 175, 55, 0.1) 100%);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .alumni-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #1a5f3f;
+            margin-bottom: 10px;
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .subject-combo {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            border: 2px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+
+        .subject-combo:hover {
+            border-color: #d4af37;
+            transform: translateY(-3px);
+        }
+
+        .combo-title {
+            font-weight: 700;
+            color: #1a5f3f;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .footer {
+            background: #1a5f3f;
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .school-logo {
+                font-size: 2.5rem;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .nav-tab {
+                padding: 15px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1 class="school-logo">TABORA BOYS SECONDARY SCHOOL</h1>
+            <h1 class="school-logo">ABOUT OUR SCHOOL</h1>
+            <p class="school-subtitle">"The Eton of Tanganyika" • Knowledge • Leadership • Excellence</p>
+            <div class="established">Established 1922</div>
+        </div>
+    </div>
+
+    <nav class="navigation">
+        <div class="container">
+            <div class="nav-tabs">
+                <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
+                <button class="nav-tab" onclick="showTab('academics')">Academics</button>
+                <button class="nav-tab" onclick="showTab('performance')">Performance</button>
+                <button class="nav-tab" onclick="showTab('infrastructure')">Infrastructure</button>
+                <button class="nav-tab" onclick="showTab('leadership')">Leadership</button>
+                <button class="nav-tab" onclick="showTab('alumni')">Alumni</button>
+                <button class="nav-tab" onclick="showTab('challenges')">Analysis</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Overview Tab -->
+        <div id="overview" class="tab-content active">
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Basic Information</h3>
+                    <p><strong>Full Name:</strong> Tabora Boys Secondary School (Tabora School)</p>
+                    <p><strong>Location:</strong> Kitete Ward, Tabora Municipal Council, Tabora Region, Tanzania</p>
+                    <p><strong>Type:</strong> Government Boys' Boarding Secondary School</p>
+                    <p><strong>Levels:</strong> Ordinary Level (Form 1-4) & Advanced Level (Form 5-6)</p>
+                    <p><strong>Website:</strong> taboraschool.com</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Historical Background</h3>
+                    <p><strong>Founded:</strong> 1922 during colonial period</p>
+                    <p><strong>Original Purpose:</strong> Educate sons of chiefs and prominent families</p>
+                    <p><strong>Early Features:</strong> Students assigned to dormitories by tribe, tribal customs integrated into education</p>
+                    <p><strong>Reputation:</strong> Known as "The Eton of Tanganyika" - highly prestigious</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Current Status</h3>
+                    <p><strong>Ranking:</strong> #1 Among Government Schools in Tanzania (2024)</p>
+                    <p><strong>Students:</strong> 527 O-Level, 263 A-Level students</p>
+                    <p><strong>Teachers:</strong> 55 teaching staff</p>
+                    <p><strong>Admission:</strong> Government assignment through TAMISEMI</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Academics Tab -->
+        <div id="academics" class="tab-content">
+            <div class="performance-chart">
+                <h2 style="color: #1a5f3f; margin-bottom: 20px;">Subject Combinations Offered</h2>
+                <div class="subjects-grid">
+                    <div class="subject-combo">
+                        <div class="combo-title">PCM</div>
+                        <p>Physics, Chemistry, Mathematics</p>
+                    </div>
+                    <div class="subject-combo">
+                        <div class="combo-title">PCB</div>
+                        <p>Physics, Chemistry, Biology</p>
+                    </div>
+                    <div class="subject-combo">
+                        <div class="combo-title">HGL</div>
+                        <p>History, Geography, Languages</p>
+                    </div>
+                    <div class="subject-combo">
+                        <div class="combo-title">PMCs</div>
+                        <p>Physics, Mathematics, Computer Science</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Academic Structure</h3>
+                    <p><strong>Ordinary Level:</strong> Form 1-4 (4 years)</p>
+                    <p><strong>Advanced Level:</strong> Form 5-6 (2 years)</p>
+                    <p><strong>Medium of Instruction:</strong> English & Kiswahili</p>
+                    <p><strong>Curriculum:</strong> Tanzania National Curriculum</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Admission Process</h3>
+                    <p><strong>Form 1:</strong> Government selection through TAMISEMI</p>
+                    <p><strong>Form 5:</strong> Government assignment based on O-Level results</p>
+                    <p><strong>Requirements:</strong> Excellent academic performance</p>
+                    <p><strong>Competition:</strong> Highly competitive admission</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Tab -->
+        <div id="performance" class="tab-content">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">#1</span>
+                    <div class="stat-label">Government Schools Ranking (2024)</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">13th</span>
+                    <div class="stat-label">Out of 6,382 Schools Nationally</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">1.33</span>
+                    <div class="stat-label">A-Level GPA (2024)</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">100%</span>
+                    <div class="stat-label">A-Level Pass Rate (Division I)</div>
+                </div>
+            </div>
+
+            <div class="performance-chart">
+                <h2 style="color: #1a5f3f; margin-bottom: 20px;">Academic Excellence</h2>
+                <div class="ranking-badge">🏆 #1 Government School in Tanzania</div>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>A-Level Performance (ACSEE)</h3>
+                        <p><strong>2024 Results:</strong> All 141 students passed</p>
+                        <p><strong>Division I:</strong> 100% of students</p>
+                        <p><strong>GPA:</strong> 1.33 (Excellent)</p>
+                        <p><strong>National Ranking:</strong> Among top government schools</p>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>O-Level Performance (FTNA)</h3>
+                        <p><strong>National Ranking:</strong> Consistently top tens</p>
+                        <p><strong>2024 Position:</strong> 13th out of 6,382 schools</p>
+                        <p><strong>Pass Rate:</strong> Very high performance</p>
+                        <p><strong>Trend:</strong> Sustained excellence over years</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Infrastructure Tab -->
+        <div id="infrastructure" class="tab-content">
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Facilities Available</h3>
+                    <ul>
+                        <li>Modern classrooms</li>
+                        <li>Science laboratories</li>
+                        <li>Student dormitories</li>
+                        <li>Administrative blocks</li>
+                        <li>Library facilities</li>
+                        <li>Sports facilities</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>Boarding Facilities</h3>
+                    <p><strong>Accommodation:</strong> Full boarding school</p>
+                    <p><strong>Dormitories:</strong> Well-maintained student housing</p>
+                    <p><strong>Dining:</strong> School cafeteria and dining halls</p>
+                    <p><strong>Study Areas:</strong> Dedicated study spaces</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Academic Infrastructure</h3>
+                    <ul>
+                        <li>Well-equipped science laboratories</li>
+                        <li>Computer laboratory</li>
+                        <li>Comprehensive library</li>
+                        <li>Audio-visual equipment</li>
+                        <li>Internet connectivity</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leadership Tab -->
+        <div id="leadership" class="tab-content">
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Current Leadership</h3>
+                    <p><strong>Headmaster:</strong> Mr. Deograsias Mwambuzi</p>
+                    <p><strong>Governance:</strong> Government-owned institution</p>
+                    <p><strong>Oversight:</strong> Tabora Municipal Council</p>
+                    <p><strong>Ministry:</strong> TAMISEMI (Ministry of Local Government)</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Teaching Staff</h3>
+                    <p><strong>Total Teachers:</strong> 55 qualified educators</p>
+                    <p><strong>Student-Teacher Ratio:</strong> Manageable ratios</p>
+                    <p><strong>Qualifications:</strong> Highly qualified teaching staff</p>
+                    <p><strong>Professional Development:</strong> Ongoing training programs</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Administrative Structure</h3>
+                    <p><strong>Management:</strong> Professional administrative team</p>
+                    <p><strong>Departments:</strong> Academic and administrative divisions</p>
+                    <p><strong>Support Staff:</strong> Non-teaching support personnel</p>
+                    <p><strong>Governance:</strong> School board and committees</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alumni Tab -->
+        <div id="alumni" class="tab-content">
+            <div class="alumni-highlight">
+                <div class="alumni-name">Julius Nyerere</div>
+                <p>First President of the United Republic of Tanzania</p>
+                <p style="margin-top: 15px; font-style: italic;">"The Father of the Nation" - Most distinguished alumnus</p>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Notable Alumni</h3>
+                    <p><strong>Julius Nyerere:</strong> First President of Tanzania, Pan-African leader</p>
+                    <p><strong>Other Alumni:</strong> Many prominent leaders, professionals, and academics</p>
+                    <p><strong>Legacy:</strong> Graduates in various fields across Tanzania and internationally</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Alumni Network</h3>
+                    <p><strong>Leadership:</strong> Many in government positions</p>
+                    <p><strong>Academia:</strong> University professors and researchers</p>
+                    <p><strong>Business:</strong> Successful entrepreneurs and executives</p>
+                    <p><strong>Professions:</strong> Doctors, lawyers, engineers, and other professionals</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Alumni Impact</h3>
+                    <p><strong>National Level:</strong> Significant contribution to Tanzania's development</p>
+                    <p><strong>Regional Influence:</strong> Leadership roles across East Africa</p>
+                    <p><strong>International:</strong> Representation in global organizations</p>
+                    <p><strong>Mentorship:</strong> Supporting current students and school development</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analysis Tab -->
+        <div id="challenges" class="tab-content">
+            <h2 style="color: #1a5f3f; margin-bottom: 30px;">Institutional Analysis</h2>
+            
+            <div style="margin-bottom: 40px;">
+                <h3 style="color: #27ae60; margin-bottom: 20px;">Strengths & Advantages</h3>
+                
+                <div class="strength-item">
+                    <h4>Outstanding Academic Performance</h4>
+                    <p>Consistently ranks #1 among government schools with exceptional pass rates and top national rankings.</p>
+                </div>
+
+                <div class="strength-item">
+                    <h4>Historical Prestige & Reputation</h4>
+                    <p>Over 100 years of excellence, known as "The Eton of Tanganyika" with distinguished alumni including President Nyerere.</p>
+                </div>
+
+                <div class="strength-item">
+                    <h4>Strong Subject Combinations</h4>
+                    <p>Comprehensive A-Level programs (PCM, PCB, HGL, PMCs) preparing students for diverse career paths.</p>
+                </div>
+
+                <div class="strength-item">
+                    <h4>Stable Leadership</h4>
+                    <p>Experienced administration and qualified teaching staff maintaining educational standards.</p>
+                </div>
+            </div>
+
+            <div>
+                <h3 style="color: #e74c3c; margin-bottom: 20px;">Challenges & Areas for Improvement</h3>
+                
+                <div class="challenge-item">
+                    <h4>Teacher Shortages</h4>
+                    <p>Insufficient teachers, particularly in science subjects, affecting student-teacher ratios.</p>
+                </div>
+
+                <div class="challenge-item">
+                    <h4>High Student-Teacher Ratios</h4>
+                    <p>Large class sizes due to high enrollment demand for quality education.</p>
+                </div>
+
+                <div class="challenge-item">
+                    <h4>Infrastructure Gaps</h4>
+                    <p>Deficits in teacher housing, administrative blocks, laboratory equipment, and storage facilities.</p>
+                </div>
+
+                <div class="challenge-item">
+                    <h4>Resource Constraints</h4>
+                    <p>Furniture shortages and inadequate facilities common across Tabora Municipal Council schools.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div class="section">
+      <h2>Digital Portal Development Team</h2>
+      <div class="team-section">
+        <p>This smart registration portal was developed to modernize student enrollment and record management processes.</p>
+        <div class="team-grid">
+          <div class="team-member">
+            <div class="team-avatar">👨‍💻</div>
+            <h3>Christian Kibona</h3>
+            <p>Lead Developer & System Architect</p>
+          </div>
+          <div class="team-member">
+            <div class="team-avatar">👨‍💻</div>
+            <h3>Johnson Fungilwa</h3>
+            <p>Co-Developer & UI/UX Designer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <p>&copy; 2024 Tabora Boys Secondary School | Knowledge • Leadership • Excellence</p>
+            <p>Kitete Ward, Tabora Municipal Council, Tabora Region, Tanzania</p>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all nav tabs
+            const navTabs = document.querySelectorAll('.nav-tab');
+            navTabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active class to clicked nav tab
+            event.target.classList.add('active');
+        }
+
+        // Add smooth scrolling for better UX
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                setTimeout(() => {
+                    document.querySelector('.navigation').scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>

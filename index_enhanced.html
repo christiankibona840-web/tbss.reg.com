@@ -1,0 +1,737 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+ <link rel="icon" href="icon.png">
+  <meta charset="UTF-8">
+  <title>Tabora Boys - Welcome</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --primary: #1a365d;
+      --secondary: #2c5282;
+      --accent: #d69e2e;
+      --light: #f7fafc;
+      --dark: #1a202c;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+    }
+
+    /* Enhanced Background Slideshow */
+    .slideshow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    
+    .slideshow::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(26, 54, 93, 0.85) 0%, rgba(44, 82, 130, 0.75) 100%);
+      z-index: 2;
+      animation: pulseOverlay 8s ease-in-out infinite;
+    }
+
+    @keyframes pulseOverlay {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.9; }
+    }
+
+    .slideshow img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      z-index: 1;
+      transition: opacity 1.5s ease-in-out, transform 20s ease-out;
+    }
+    
+    .slideshow img.active {
+      opacity: 1;
+      animation: kenBurns 20s ease-out forwards;
+    }
+
+    @keyframes kenBurns {
+      0% { 
+        transform: scale(1) translate(0, 0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% { 
+        transform: scale(1.15) translate(-2%, -2%);
+        opacity: 0;
+      }
+    }
+
+    /* Intro Content */
+    .intro {
+      position: relative;
+      z-index: 3;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px 20px;
+      animation: fadeInContent 1s ease-out;
+    }
+
+    @keyframes fadeInContent {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .logo-container {
+      margin-bottom: 40px;
+      animation: floatShake 4s ease-in-out infinite, scaleIn 0.8s ease-out;
+      transform-origin: center;
+    }
+
+    @keyframes floatShake {
+      0%, 100% { 
+        transform: translateY(0px) rotate(0deg);
+      }
+      25% { 
+        transform: translateY(-15px) rotate(-3deg);
+      }
+      50% { 
+        transform: translateY(-20px) rotate(0deg);
+      }
+      75% { 
+        transform: translateY(-15px) rotate(3deg);
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        transform: scale(0) rotate(-180deg);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
+    }
+
+    .school-badge {
+      width: 140px;
+      height: 140px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 0 8px rgba(214, 158, 46, 0.3);
+      border: 5px solid var(--accent);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .school-badge::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.5), transparent);
+      animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: rotate(0deg) translate(-50%, -50%); }
+      100% { transform: rotate(360deg) translate(-50%, -50%); }
+    }
+
+    .school-badge img {
+      width: 85%;
+      height: 85%;
+      object-fit: contain;
+      position: relative;
+      z-index: 2;
+      animation: rotateSubtle 6s ease-in-out infinite;
+    }
+
+    @keyframes rotateSubtle {
+      0%, 100% { transform: rotate(-2deg); }
+      50% { transform: rotate(2deg); }
+    }
+
+    /* Fallback icon styling */
+    .school-badge svg {
+      width: 70px;
+      height: 70px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .intro h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 900;
+      color: white;
+      margin-bottom: 20px;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      line-height: 1.2;
+      letter-spacing: -1px;
+      animation: slideInDown 0.8s ease-out 0.3s backwards;
+    }
+
+    @keyframes slideInDown {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .intro .subtitle {
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      color: rgba(255,255,255,0.95);
+      margin-bottom: 30px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      animation: slideInUp 0.8s ease-out 0.5s backwards;
+    }
+
+    @keyframes slideInUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .intro .description {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 50px;
+      max-width: 600px;
+      line-height: 1.8;
+      min-height: 80px;
+      animation: fadeInScale 0.8s ease-out 0.7s backwards;
+    }
+
+    @keyframes fadeInScale {
+      from {
+        transform: scale(0.95);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* Typewriter effect */
+    .typewriter {
+      display: inline-block;
+      border-right: 3px solid rgba(255,255,255,0.9);
+      padding-right: 5px;
+      animation: blink 0.7s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% { border-color: rgba(255,255,255,0.9); }
+      51%, 100% { border-color: transparent; }
+    }
+
+    .button-group {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: bounceIn 0.8s ease-out 0.9s backwards;
+    }
+
+    @keyframes bounceIn {
+      0% {
+        transform: scale(0.3);
+        opacity: 0;
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      70% {
+        transform: scale(0.9);
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .btn {
+      padding: 18px 45px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .btn:active {
+      transform: scale(0.95);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #e5a721);
+      color: var(--dark);
+      box-shadow: 0 10px 30px rgba(214, 158, 46, 0.4);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 10px 30px rgba(214, 158, 46, 0.4);
+      }
+      50% {
+        box-shadow: 0 10px 40px rgba(214, 158, 46, 0.6);
+      }
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(214, 158, 46, 0.6);
+      animation: none;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.15);
+      color: white;
+      border: 2px solid rgba(255,255,255,0.5);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.25);
+      border-color: white;
+      transform: translateY(-3px) scale(1.05);
+    }
+
+    .features {
+      margin-top: 60px;
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .feature-item {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      padding: 20px 30px;
+      border-radius: 15px;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: fadeInUp 0.6s ease-out backwards;
+      transition: all 0.3s ease;
+    }
+
+    .feature-item:hover {
+      transform: translateY(-5px);
+      background: rgba(255,255,255,0.2);
+      border-color: rgba(255,255,255,0.4);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .feature-item:nth-child(1) { animation-delay: 1.1s; }
+    .feature-item:nth-child(2) { animation-delay: 1.3s; }
+    .feature-item:nth-child(3) { animation-delay: 1.5s; }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .feature-icon {
+      font-size: 1.5rem;
+      animation: rotateIcon 3s ease-in-out infinite;
+    }
+
+    @keyframes rotateIcon {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      25% { transform: rotate(-10deg) scale(1.1); }
+      75% { transform: rotate(10deg) scale(1.1); }
+    }
+
+    /* Particles background effect */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(255,255,255,0.5);
+      border-radius: 50%;
+      animation: float-particle linear infinite;
+    }
+
+    @keyframes float-particle {
+      0% {
+        transform: translateY(100vh) translateX(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px) translateX(100px);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .button-group {
+        flex-direction: column;
+        width: 100%;
+        padding: 0 20px;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .features {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .school-badge {
+        width: 110px;
+        height: 110px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Particles Container -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Background Slideshow Container -->
+  <div class="slideshow" id="slideshow">
+    <!-- Images will be loaded dynamically via JavaScript -->
+  </div>
+
+  <!-- Intro Content -->
+  <div class="intro">
+    <div class="logo-container">
+      <div class="school-badge" id="schoolBadge">
+        <!-- Logo will be inserted here -->
+        <img src="logo.png" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+          <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+        </svg>
+      </div>
+    </div>
+
+    <h1 id="introTitle">Tabora Boys Secondary School</h1>
+    <p class="subtitle" id="introSubtitle">Smart joining portal</p>
+    <p class="description" id="introText">
+      <span class="typewriter" id="typewriter"></span>
+    </p>
+
+    <div class="button-group">
+      <button class="btn btn-primary" onclick="enterDashboard()" id="enterBtn">
+        Enter Portal
+      </button>
+      <button class="btn btn-secondary" onclick="toggleLanguage()" id="langBtn">
+        Swahili
+      </button>
+    </div>
+
+    <div class="features">
+      <div class="feature-item">
+        <span class="feature-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+        </span>
+        <span id="feature1">Online Joining </span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+        </span>
+        <span id="feature2">Secure Storage</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"></line>
+            <line x1="12" y1="20" x2="12" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="14"></line>
+          </svg>
+        </span>
+        <span id="feature3">Smart Records</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== SCHOOL LOGO CONFIGURATION =====
+    // Set your school logo path here
+    const SCHOOL_LOGO_PATH = 'logo.png'; // Change this to your logo filename
+    
+    // Try to load the school logo
+    const schoolBadge = document.getElementById('schoolBadge');
+    const logoImg = new Image();
+    logoImg.src = SCHOOL_LOGO_PATH;
+    logoImg.alt = 'School Logo';
+    
+    logoImg.onload = function() {
+      // Logo loaded successfully, replace SVG with image
+      schoolBadge.innerHTML = '';
+      schoolBadge.appendChild(logoImg);
+    };
+    
+    // If logo fails to load, keep the default SVG icon
+
+    // ===== BACKGROUND IMAGES CONFIGURATION =====
+    const backgroundImages = [
+      "logo.png",
+      "get.jpg",
+      "b.jpg",
+      "n.jpg",
+      "m.jpg",
+      "f.jpg",
+      "i.jpg",
+      "b(2).jpg"
+    ];
+
+    // Duration for each slide in seconds (reduced for faster transitions)
+    const slideDuration = 6;
+    
+    // ===== SLIDESHOW LOGIC =====
+    let currentSlideIndex = 0;
+    const slideshowContainer = document.getElementById('slideshow');
+    
+    // Create and append image elements
+    backgroundImages.forEach((imageUrl, index) => {
+      const img = document.createElement('img');
+      img.src = imageUrl;
+      img.alt = `School Image ${index + 1}`;
+      if (index === 0) {
+        img.classList.add('active');
+      }
+      slideshowContainer.appendChild(img);
+    });
+    
+    const slides = slideshowContainer.querySelectorAll('img');
+    
+    // Function to show next slide
+    function showNextSlide() {
+      if (slides.length === 0) return;
+      
+      // Remove active class from current slide
+      slides[currentSlideIndex].classList.remove('active');
+      
+      // Move to next slide
+      currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+      
+      // Add active class to new slide
+      slides[currentSlideIndex].classList.add('active');
+    }
+    
+    // Start slideshow immediately with no delay
+    if (slides.length > 1) {
+      setInterval(showNextSlide, slideDuration * 1000);
+    }
+
+    // ===== PARTICLES EFFECT =====
+    const particlesContainer = document.getElementById('particles');
+    const numberOfParticles = 30;
+    
+    for (let i = 0; i < numberOfParticles; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+      particle.style.animationDelay = Math.random() * 5 + 's';
+      particlesContainer.appendChild(particle);
+    }
+
+    // ===== TYPEWRITER EFFECT =====
+    const messages = {
+      en: {
+        title: "Tabora Boys Secondary School",
+        subtitle: "Excellence in Education",
+        text: "Welcome to our smart digital Joining portal. Experience a seamless, modern approach to student enrollment and record management.",
+        enterBtn: "Enter Portal",
+        langBtn: "Swahili",
+        feature1: "Online joinig",
+        feature2: "Secure Storage",
+        feature3: "Smart Records"
+      },
+      sw: {
+        title: "Shule ya Sekondari Tabora Wavulana",
+        subtitle: "Ubora wa Elimu",
+        text: "Karibu kwenye mfumo wetu mahiri wa kujiunga wa dijitali. Furahia njia ya kisasa na rahisi ya kuandikisha wanafunzi na kusimamia rekodi.",
+        enterBtn: "Ingia Mfumo",
+        langBtn: "English",
+        feature1: "Kujiunga kidigitali",
+        feature2: "Uhifadhi Salama",
+        feature3: "Rekodi Mahiri"
+      }
+    };
+
+    let currentLang = "en";
+    let typewriterTimeout;
+    
+    function typeWriter(text, element, speed = 50) {
+      let i = 0;
+      element.textContent = '';
+      
+      function type() {
+        if (i < text.length) {
+          element.textContent += text.charAt(i);
+          i++;
+          typewriterTimeout = setTimeout(type, speed);
+        } else {
+          // Remove cursor after typing is complete
+          setTimeout(() => {
+            element.classList.remove('typewriter');
+          }, 1000);
+        }
+      }
+      
+      element.classList.add('typewriter');
+      type();
+    }
+
+    // Start typewriter effect on page load
+    window.addEventListener('load', () => {
+      const typewriterElement = document.getElementById('typewriter');
+      typeWriter(messages[currentLang].text, typewriterElement);
+    });
+
+    function toggleLanguage() {
+      currentLang = currentLang === "en" ? "sw" : "en";
+      const lang = messages[currentLang];
+      
+      // Clear existing typewriter timeout
+      if (typewriterTimeout) {
+        clearTimeout(typewriterTimeout);
+      }
+      
+      // Update static text with animation
+      document.getElementById("introTitle").style.animation = 'none';
+      setTimeout(() => {
+        document.getElementById("introTitle").innerText = lang.title;
+        document.getElementById("introTitle").style.animation = 'slideInDown 0.5s ease-out';
+      }, 10);
+      
+      document.getElementById("introSubtitle").innerText = lang.subtitle;
+      document.getElementById("enterBtn").innerText = lang.enterBtn;
+      document.getElementById("langBtn").innerText = lang.langBtn;
+      document.getElementById("feature1").innerText = lang.feature1;
+      document.getElementById("feature2").innerText = lang.feature2;
+      document.getElementById("feature3").innerText = lang.feature3;
+      
+      // Restart typewriter for description
+      const typewriterElement = document.getElementById('typewriter');
+      typeWriter(lang.text, typewriterElement, 40);
+    }
+
+    function enterDashboard() {
+      // Add exit animation
+      document.querySelector('.intro').style.animation = 'fadeOut 0.5s ease-out forwards';
+      window.location.href = "dashboard_enhanced.html"
+      
+      setTimeout(() => {
+        window.location.href = "dashboard_enhanced.html";
+      }, 500);
+    }
+    
+    // Add fadeOut animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes fadeOut {
+        from { opacity: 1; transform: scale(1); }
+        to { opacity: 0; transform: scale(0.95); }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>

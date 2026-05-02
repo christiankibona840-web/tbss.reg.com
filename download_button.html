@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download Button</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: #f0f4f8;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #e63946, #c1121f);
+      color: white;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .download-btn:hover {
+      background: linear-gradient(135deg, #c1121f, #9d0208);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(230, 57, 70, 0.5);
+    }
+
+    .download-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 8px rgba(230, 57, 70, 0.3);
+    }
+
+    .download-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#" class="download-btn" download>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z"/>
+    </svg>
+    Pakua PDF ya Maelekezo ya Kujiunga na Shule
+  </a>
+
+</body>
+</html>
